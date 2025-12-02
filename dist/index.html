@@ -1375,15 +1375,22 @@
             font-weight: 500;
         }
         .bizen-board-section .board-grid {
-            display: flex;
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            flex-direction: row !important;
             gap: 16px;
             margin-bottom: 30px;
-            overflow-x: auto;
+            overflow-x: auto !important;
+            overflow-y: hidden;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
             padding-bottom: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-left: -20px;
+            margin-right: -20px;
         }
         .bizen-board-section .board-grid::-webkit-scrollbar {
             display: none;
