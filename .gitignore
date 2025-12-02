@@ -1,6 +1,9 @@
 # 민감 정보 파일
 automation/
 설계기획서.md
+dist/js/config.js
+.claude/settings.local.json
+backup/
 
 # 기타
 .DS_Store
