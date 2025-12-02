@@ -1,0 +1,88 @@
+  🚀 개발 시작 순서
+
+  Step 1: 문서 읽기 (30분)
+
+  1. README.md 읽기 (5분)
+  2. 아임웹-마이그레이션-가이드.md 읽기 (20분)
+  3. 프로젝트-구조-기획서.md 훑어보기 (5분)
+
+  Step 2: 환경 설정 (10분)
+
+  # 프로젝트 생성
+  npx create-next-app@latest pola-homepage --typescript --tailwind --app
+
+  # 패키지 설치
+  cd pola-homepage
+  npx shadcn@latest init
+  npx shadcn@latest add button input card accordion dialog toast
+  npm install airtable resend react-hook-form zod @hookform/resolvers
+
+  # 환경변수 설정
+  cp .env.example .env.local
+  # .env.local 편집
+
+  # 개발 서버 실행
+  npm run dev
+
+  Step 3: 기존 파일 분석 (30분)
+
+  F:\bas_homepage\25.yangmihyeon_yj정책자금지원센터\
+  ├── 01.header.txt → components/layout/Header.tsx
+  ├── 02.hero.txt → components/home/HeroSection.tsx
+  ├── 03.service.txt → components/home/ServiceSection.tsx
+  └── ... (나머지 섹션)
+
+  각 파일:
+  1. HTML 구조 파악
+  2. 텍스트 내용 복사
+  3. CSS 색상 확인
+  4. 이미지 경로 확인
+
+  Step 4: 개발 시작 (2주)
+
+  Week 1: 레이아웃 + 홈페이지
+  Week 2: 서브 페이지 + API + 배포
+
+  ---
+  💡 핵심 포인트
+
+  ✅ 기존 구조 그대로 유지
+
+  - 메뉴 구조: 동일
+  - 섹션 순서: 동일
+  - 콘텐츠 내용: 동일
+  - 이미지: 그대로 사용
+
+  ✅ 변경 사항
+
+  - 브랜드 컬러: #0066CC (Primary), #F59E0B (Accent)
+  - 기술: HTML 위젯 → Next.js 컴포넌트
+  - 스타일: 인라인 CSS → Tailwind CSS
+  - SEO: 메타 태그, Structured Data 추가
+
+  ✅ 새로 추가
+
+  - /success 페이지 (성공사례 목록)
+  - /faq 페이지 (자주묻는질문)
+  - API Routes (폼 제출)
+  - Sitemap, Robots.txt
+
+  ---
+  ❓ 다음 단계는?
+
+  필요한 작업이 있으시면 말씀해주세요:
+
+  1. 특정 컴포넌트 전체 코드 작성
+    - Header 전체 구현
+    - HeroSection 전체 구현
+    - ContactForm 전체 구현
+  2. 기존 아임웹 파일 분석
+    - F:\bas_homepage\25.yangmihyeon_yj정책자금지원센터\ 파일들 읽고 분석
+  3. 브랜드 컬러 추출
+    - 기존 아임웹 색상 자동 추출
+  4. 환경변수 설정 가이드
+    - Airtable, Resend, Telegram 설정 방법
+  5. Vercel 배포 단계별 가이드
+    - 스크린샷 포함 상세 가이드
+
+  무엇이 필요하신가요? 🚀

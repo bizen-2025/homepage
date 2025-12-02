@@ -1,0 +1,124 @@
+<!-- Process Component -->
+<style>
+    .bizen-process-section { position: relative; width: 100%; padding: 50px 20px 40px; overflow: hidden; background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%); }
+    .bizen-process-container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
+    .bizen-process-header { text-align: center; margin-bottom: 30px; animation: fadeInDown 0.8s ease; }
+    .bizen-process-title { font-size: 24px; font-weight: 900; color: #1E1E6E; margin-bottom: 10px; line-height: 1.3; }
+    .bizen-process-highlight { color: #3B82F6; font-weight: 900; }
+    .bizen-process-subtitle { font-size: 14px; color: #4B5563; font-weight: 500; line-height: 1.5; }
+    .bizen-process-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; margin-top: 30px; }
+    .bizen-process-card { position: relative; background: #FFFFFF; border: 1px solid rgba(30, 30, 110, 0.1); border-radius: 16px; padding: 16px 14px 16px 55px; transition: all 0.3s ease; overflow: visible; animation: fadeInUp 0.6s ease backwards; box-shadow: 0 4px 20px rgba(30, 30, 110, 0.08); display: flex; align-items: center; gap: 12px; min-height: 70px; }
+    .bizen-process-card:nth-child(1) { animation-delay: 0.1s; }
+    .bizen-process-card:nth-child(3) { animation-delay: 0.2s; }
+    .bizen-process-card:nth-child(5) { animation-delay: 0.3s; }
+    .bizen-process-card:active { transform: scale(0.98); }
+    .bizen-step-number { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: linear-gradient(135deg, #1E1E6E, #2D2D8A); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #ffffff; box-shadow: 0 4px 12px rgba(30, 30, 110, 0.3); }
+    .bizen-card-wrapper { display: flex; align-items: center; gap: 12px; flex: 1; }
+    .bizen-card-icon { width: 36px; height: 36px; min-width: 36px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.1)); border-radius: 10px; }
+    .bizen-card-icon svg { width: 20px; height: 20px; fill: #3B82F6; }
+    .bizen-card-text { flex: 1; }
+    .bizen-card-title { font-size: 17px; font-weight: 800; color: #1E1E6E; margin-bottom: 3px; }
+    .bizen-card-desc { font-size: 13px; color: #4B5563; line-height: 1.4; font-weight: 500; }
+    .bizen-mobile-connector { display: block; width: 2px; height: 20px; background: linear-gradient(180deg, rgba(30, 30, 110, 0.1), rgba(59, 130, 246, 0.3), rgba(30, 30, 110, 0.1)); margin: -5px auto; }
+    .bizen-result-box { background: linear-gradient(135deg, #1E1E6E 0%, #14144A 100%); border-radius: 20px; padding: 28px 20px; text-align: center; position: relative; overflow: hidden; animation: fadeIn 1s ease 0.4s backwards; box-shadow: 0 15px 40px rgba(30, 30, 110, 0.25); }
+    .bizen-result-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #60A5FA, transparent); animation: pulse-line 3s ease infinite; }
+    .bizen-result-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .bizen-result-title svg { width: 26px; height: 26px; fill: #93C5FD; filter: drop-shadow(0 0 8px rgba(147, 197, 253, 0.5)); }
+    .bizen-result-desc { font-size: 15px; color: rgba(255, 255, 255, 0.95); font-weight: 500; margin-bottom: 10px; line-height: 1.5; }
+    .bizen-result-highlight { color: #93C5FD; font-weight: 700; font-size: 24px; }
+    .bizen-result-note { font-size: 11px; color: rgba(255, 255, 255, 0.7); margin-top: 15px; }
+    @media (min-width: 768px) {
+        .bizen-process-section { padding: 70px 30px 60px; }
+        .bizen-process-header { margin-bottom: 50px; }
+        .bizen-process-title { font-size: 40px; }
+        .bizen-process-subtitle { font-size: 18px; }
+        .bizen-process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; margin-top: 50px; }
+        .bizen-mobile-connector { display: none; }
+        .bizen-process-card { flex-direction: column; padding: 40px 25px 30px; min-height: auto; gap: 0; text-align: center; }
+        .bizen-step-number { position: absolute; left: 50%; top: -20px; transform: translateX(-50%); width: 50px; height: 50px; font-size: 20px; }
+        .bizen-card-wrapper { flex-direction: column; gap: 15px; }
+        .bizen-card-icon { width: 60px; height: 60px; border-radius: 16px; margin: 0 auto; }
+        .bizen-card-icon svg { width: 32px; height: 32px; }
+        .bizen-card-text { text-align: center; }
+        .bizen-card-title { font-size: 22px; margin-bottom: 8px; }
+        .bizen-card-desc { font-size: 15px; }
+        .bizen-process-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 30, 110, 0.15); border-color: rgba(59, 130, 246, 0.3); }
+        .bizen-process-card:hover .bizen-card-icon { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 197, 253, 0.15)); transform: scale(1.1); }
+        .bizen-result-box { padding: 40px; border-radius: 25px; }
+        .bizen-result-title { font-size: 28px; }
+        .bizen-result-title svg { width: 32px; height: 32px; }
+        .bizen-result-desc { font-size: 18px; }
+        .bizen-result-highlight { font-size: 32px; }
+        .bizen-result-note { font-size: 13px; }
+    }
+    @media (min-width: 1024px) {
+        .bizen-process-section { padding: 80px 40px 70px; }
+        .bizen-process-header { margin-bottom: 60px; }
+        .bizen-process-title { font-size: 46px; }
+        .bizen-process-subtitle { font-size: 20px; }
+        .bizen-process-grid { gap: 35px; }
+        .bizen-step-number { width: 56px; height: 56px; font-size: 22px; top: -24px; }
+        .bizen-card-icon { width: 70px; height: 70px; border-radius: 18px; }
+        .bizen-card-icon svg { width: 36px; height: 36px; }
+        .bizen-card-title { font-size: 26px; margin-bottom: 10px; }
+        .bizen-card-desc { font-size: 16px; }
+        .bizen-result-box { padding: 50px; border-radius: 30px; }
+        .bizen-result-title { font-size: 32px; }
+        .bizen-result-desc { font-size: 20px; }
+        .bizen-result-highlight { font-size: 36px; }
+        .bizen-result-note { font-size: 14px; margin-top: 20px; }
+    }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<section class="bizen-process-section">
+    <div class="bizen-process-container">
+        <div class="bizen-process-header">
+            <h2 class="bizen-process-title">성공적인 자금 확보를 위한<br class="mobile-br"> <span class="bizen-process-highlight">체계적 접근</span></h2>
+            <p class="bizen-process-subtitle">복잡한 절차도 명확하게, BIZEN과 함께라면 가능합니다</p>
+        </div>
+        <div class="bizen-process-grid">
+            <div class="bizen-process-card">
+                <div class="bizen-step-number">01</div>
+                <div class="bizen-card-wrapper">
+                    <div class="bizen-card-icon"><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></div>
+                    <div class="bizen-card-text">
+                        <h3 class="bizen-card-title">현황 분석</h3>
+                        <p class="bizen-card-desc">대표자 역량 정밀 진단으로<br class="mobile-br">맞춤형 자금 전략 수립</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bizen-mobile-connector"></div>
+            <div class="bizen-process-card">
+                <div class="bizen-step-number">02</div>
+                <div class="bizen-card-wrapper">
+                    <div class="bizen-card-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+                    <div class="bizen-card-text">
+                        <h3 class="bizen-card-title">전략 구축</h3>
+                        <p class="bizen-card-desc">강점 극대화하여<br class="mobile-br">승인 가능성 최적화</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bizen-mobile-connector"></div>
+            <div class="bizen-process-card">
+                <div class="bizen-step-number">03</div>
+                <div class="bizen-card-wrapper">
+                    <div class="bizen-card-icon"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+                    <div class="bizen-card-text">
+                        <h3 class="bizen-card-title">실행 지원</h3>
+                        <p class="bizen-card-desc">신청부터 승인까지<br class="mobile-br">전 과정 밀착 관리</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bizen-result-box">
+            <h3 class="bizen-result-title">
+                <svg viewBox="0 0 24 24"><path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm-1 13l-3.5-3.5 1.4-1.4L11 14.2l4.1-4.1 1.4 1.4L11 17z"/></svg>
+                성공적인 자금 확보 달성
+            </h3>
+            <p class="bizen-result-desc">BIZEN 컨설팅 승인률 <span class="bizen-result-highlight"><span class="count-up" data-count="95" data-suffix="%">0%</span></span></p>
+            <p class="bizen-result-note">*대표자 상황 및 신청 시기에 따라 지원 규모는 상이할 수 있습니다.</p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,8 @@
+# 민감 정보 파일
+automation/
+설계기획서.md
+
+# 기타
+.DS_Store
+node_modules/
+*.log

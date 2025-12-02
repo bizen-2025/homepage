@@ -1,0 +1,356 @@
+<!-- ================================================ -->
+<!-- 푸터 섹션 - MJGOOD -->
+<!-- 섹션 ID: #s20250930mjgoodfooter -->
+<!-- ================================================ -->
+
+<style>
+:root {
+    --mj-primary-blue: #0C2B5A;
+    --mj-deep-blue: #071630;
+    --mj-soft-navy: #102649;
+    --mj-cyan: #00B3C8;
+    --mj-light-blue: #1F86D9;
+    --mj-white: #FFFFFF;
+    --mj-text: rgba(255, 255, 255, 0.88);
+    --mj-sub-text: rgba(255, 255, 255, 0.65);
+}
+
+#s20250930mjgoodfooter {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+#s20250930mjgoodfooter .footer-wrapper {
+    background: linear-gradient(145deg, var(--mj-deep-blue), var(--mj-soft-navy)) !important;
+    color: var(--mj-white) !important;
+    padding: 60px 0 0 !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+#s20250930mjgoodfooter .footer-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+}
+
+#s20250930mjgoodfooter .footer-top {
+    padding-bottom: 32px !important;
+    border-bottom: 1px solid rgba(0, 179, 200, 0.25) !important;
+}
+
+#s20250930mjgoodfooter .footer-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin-bottom: 12px !important;
+}
+
+#s20250930mjgoodfooter .footer-logo-image {
+    height: 42px !important;
+    width: auto !important;
+    filter: brightness(0) invert(1) !important;
+    transition: transform 0.3s ease !important;
+}
+
+#s20250930mjgoodfooter .footer-logo:hover .footer-logo-image {
+    transform: scale(1.05) !important;
+}
+
+#s20250930mjgoodfooter .footer-desc {
+    margin: 0 !important;
+    color: var(--mj-text) !important;
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+}
+
+#s20250930mjgoodfooter .footer-middle {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 80px !important;
+    padding: 40px 0 !important;
+    border-bottom: 1px solid rgba(0, 179, 200, 0.25) !important;
+}
+
+#s20250930mjgoodfooter .footer-title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    color: var(--mj-cyan) !important;
+}
+
+#s20250930mjgoodfooter .footer-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#s20250930mjgoodfooter .footer-list li {
+    margin-bottom: 12px !important;
+}
+
+#s20250930mjgoodfooter .footer-list a {
+    color: var(--mj-sub-text) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    font-size: 15px !important;
+}
+
+#s20250930mjgoodfooter .footer-list a:hover {
+    color: var(--mj-white) !important;
+    padding-left: 6px !important;
+}
+
+#s20250930mjgoodfooter .contact-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    color: var(--mj-text) !important;
+    margin-bottom: 14px !important;
+    font-size: 15px !important;
+}
+
+#s20250930mjgoodfooter .contact-item svg {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+    stroke: var(--mj-cyan) !important;
+}
+
+#s20250930mjgoodfooter .partnership-link {
+    margin-top: 24px !important;
+    padding-top: 20px !important;
+    border-top: 1px solid rgba(0, 179, 200, 0.2) !important;
+}
+
+#s20250930mjgoodfooter .partnership-link a {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+    color: var(--mj-text) !important;
+    background: rgba(12, 43, 90, 0.35) !important;
+    border: 1px solid rgba(0, 179, 200, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 12px 20px !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.3s ease !important;
+}
+
+#s20250930mjgoodfooter .partnership-link a:hover {
+    background: rgba(0, 179, 200, 0.2) !important;
+    border-color: var(--mj-light-blue) !important;
+    box-shadow: 0 0 20px rgba(0, 179, 200, 0.25) !important;
+    transform: translateY(-2px) !important;
+}
+
+#s20250930mjgoodfooter .partnership-icon {
+    height: 24px !important;
+    width: auto !important;
+    filter: brightness(0) invert(1) !important;
+}
+
+#s20250930mjgoodfooter .footer-bottom {
+    padding: 28px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+#s20250930mjgoodfooter .copyright {
+    color: var(--mj-sub-text) !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+}
+
+#s20250930mjgoodfooter .footer-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+#s20250930mjgoodfooter .footer-links a {
+    color: var(--mj-sub-text) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    font-size: 13px !important;
+}
+
+#s20250930mjgoodfooter .footer-links a:hover {
+    color: var(--mj-white) !important;
+}
+
+#s20250930mjgoodfooter .footer-links .divider {
+    color: rgba(0, 179, 200, 0.35) !important;
+}
+
+@media (max-width: 968px) {
+    #s20250930mjgoodfooter .footer-middle {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-bottom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #s20250930mjgoodfooter .footer-wrapper {
+        padding: 44px 0 0 !important;
+    }
+
+    #s20250930mjgoodfooter .footer-container {
+        padding: 0 18px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-logo {
+        justify-content: center !important;
+    }
+
+    #s20250930mjgoodfooter .footer-desc {
+        text-align: left !important;
+        font-size: 13px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-middle {
+        padding: 32px 0 !important;
+        gap: 32px !important;
+    }
+
+    #s20250930mjgoodfooter .contact-item {
+        font-size: 13px !important;
+        gap: 10px !important;
+    }
+
+    #s20250930mjgoodfooter .contact-item svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-title {
+        font-size: 16px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-list {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-list li {
+        margin-bottom: 0 !important;
+    }
+}
+
+@media (max-width: 520px) {
+    #s20250930mjgoodfooter .footer-logo-image {
+        height: 34px !important;
+    }
+
+    #s20250930mjgoodfooter .footer-links a,
+    #s20250930mjgoodfooter .copyright {
+        font-size: 12px !important;
+    }
+}
+</style>
+
+<div id="s20250930mjgoodfooter">
+    <div class="footer-wrapper">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="https://mjgood.kr" class="footer-logo">
+                        <img src="https://cdn.imweb.me/upload/S202509256c17bf1432fc7/664cf900506c5.png" alt="MJGOOD" class="footer-logo-image">
+                    </a>
+                    <p class="footer-desc">
+                        기업심사관 기반 경영컨설팅<br>
+                        정책자금·평가 준비의 모든 단계에 MJGOOD이 함께합니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-middle">
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M16 12h-3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3v7z"></path>
+                        </svg>
+                        <span>대표자: 구민재</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        <span>사업자등록번호: 593-15-02805</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>대표번호: 1555-1974</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M12 12l8-5H4l8 5z"></path>
+                        </svg>
+                        <span>이메일: mjgood7753@gmail.com</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>주소: 경기도 화성시 동탄첨단산업1로 27, 금강펜테리움 ix타워 B동 2549호</span>
+                    </div>
+
+                    <div class="partnership-link">
+                        <a href="https://mjgood.kr/pro" target="_blank" rel="noreferrer">
+                            <img src="https://cdn.imweb.me/upload/S2025072970f03c9c7eca7/ac036acf8a029.png" alt="파트너십" class="partnership-icon">
+                            <span>JJK 업무협약 | MJGOOD</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-menu">
+                    <h4 class="footer-title">Service Menu</h4>
+                    <ul class="footer-list">
+                        <li><a href="https://mjgood.kr/home">홈</a></li>
+                        <li><a href="https://mjgood.kr/company">회사소개</a></li>
+                        <li><a href="https://mjgood.kr/process">진행과정</a></li>
+                        <li><a href="https://mjgood.kr/fund">MJ ESC (정책자금)</a></li>
+                        <li><a href="https://mjgood.kr/pro">MJ Innovation Hub</a></li>
+                        <li><a href="https://mjgood.kr/mkt">MJ Marketing Lab</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">Copyright 2025 MJGOOD. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="https://mjgood.kr/policy">이용약관</a>
+                    <span class="divider">|</span>
+                    <a href="https://mjgood.kr/privacy">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

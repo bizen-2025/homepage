@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대표 소개 섹션</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 대표 소개 섹션 */
+        #s20250830e815f967366ab {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            background: #ffffff !important;
+            padding: 60px 0 !important;
+        }
+
+        #s20250830e815f967366ab .section-container {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+        }
+
+        #s20250830e815f967366ab .section-title {
+            text-align: center !important;
+            margin-bottom: 50px !important;
+        }
+
+        #s20250830e815f967366ab .section-title h2 {
+            font-size: 36px !important;
+            font-weight: 700 !important;
+            color: #1B3A5F !important;
+            margin-bottom: 16px !important;
+        }
+
+        #s20250830e815f967366ab .section-title p {
+            font-size: 18px !important;
+            color: #718096 !important;
+        }
+
+        /* 2명 카드 레이아웃 */
+        #s20250830e815f967366ab .team-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 40px !important;
+            margin-top: 50px !important;
+            max-width: 900px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        /* 개별 카드 */
+        #s20250830e815f967366ab .member-card {
+            background: #F8FAFB !important;
+            padding: 30px 20px !important;
+            border-radius: 20px !important;
+            box-shadow: 0 10px 40px rgba(27, 58, 95, 0.08) !important;
+            border: 2px solid #E5E7EB !important;
+            text-align: center !important;
+            position: relative !important;
+            transition: all 0.3s ease !important;
+        }
+
+        #s20250830e815f967366ab .member-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 50px rgba(37, 99, 235, 0.15) !important;
+            border-color: #00D4FF !important;
+        }
+
+        /* 대표 리본 */
+        #s20250830e815f967366ab .member-card.ceo::before {
+            content: '대표' !important;
+            position: absolute !important;
+            top: 20px !important;
+            right: -10px !important;
+            background: linear-gradient(135deg, #2563EB 0%, #0096FF 100%) !important;
+            color: white !important;
+            padding: 6px 25px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            transform: rotate(0deg) !important;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
+            border-radius: 20px 0 0 20px !important;
+        }
+
+        /* 이사 리본 */
+        #s20250830e815f967366ab .member-card.director::before {
+            content: '이사' !important;
+            position: absolute !important;
+            top: 20px !important;
+            right: -10px !important;
+            background: linear-gradient(135deg, #00D4FF 0%, #00A8CC 100%) !important;
+            color: white !important;
+            padding: 6px 25px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            transform: rotate(0deg) !important;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3) !important;
+            border-radius: 20px 0 0 20px !important;
+        }
+
+        /* 사진 */
+        #s20250830e815f967366ab .member-image {
+            width: 170px !important;
+            height: 210px !important;
+            margin: 0 auto 20px !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            background: #ffffff !important;
+            border: 3px solid #E5E7EB !important;
+        }
+
+        #s20250830e815f967366ab .member-image img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center top !important;
+        }
+
+        /* 이름 */
+        #s20250830e815f967366ab .member-name {
+            font-size: 23px !important;
+            font-weight: 700 !important;
+            color: #1B3A5F !important;
+            margin-bottom: 8px !important;
+        }
+
+        /* 직급 */
+        #s20250830e815f967366ab .member-position {
+            font-size: 16px !important;
+            color: #2563EB !important;
+            font-weight: 600 !important;
+            margin-bottom: 20px !important;
+        }
+
+        /* 자격사항 */
+        #s20250830e815f967366ab .member-qualifications {
+            display: inline-block !important;
+            text-align: left !important;
+            max-width: 240px !important;
+        }
+
+        #s20250830e815f967366ab .qual-item {
+            font-size: 13px !important;
+            color: #2D3748 !important;
+            margin-bottom: 8px !important;
+            padding-left: 20px !important;
+            position: relative !important;
+            line-height: 1.6 !important;
+        }
+
+        #s20250830e815f967366ab .qual-item::before {
+            content: '✓' !important;
+            position: absolute !important;
+            left: 0 !important;
+            color: #00D4FF !important;
+            font-weight: bold !important;
+            font-size: 16px !important;
+        }
+
+        /* 공통 인사말 섹션 */
+        #s20250830e815f967366ab .greeting-section {
+            background: linear-gradient(135deg, #F8FAFB 0%, #ffffff 100%) !important;
+            padding: 50px 40px !important;
+            border-radius: 20px !important;
+            border: 2px solid #E5E7EB !important;
+            box-shadow: 0 10px 40px rgba(27, 58, 95, 0.08) !important;
+            margin-bottom: 50px !important;
+        }
+
+        #s20250830e815f967366ab .greeting-section h3 {
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            color: #1B3A5F !important;
+            margin-bottom: 30px !important;
+            text-align: center !important;
+            line-height: 1.5 !important;
+        }
+
+        #s20250830e815f967366ab .highlight {
+            color: #2563EB !important;
+            font-weight: 800 !important;
+        }
+
+        #s20250830e815f967366ab .greeting-text {
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+
+        #s20250830e815f967366ab .greeting-text p {
+            font-size: 17px !important;
+            color: #2D3748 !important;
+            line-height: 1.9 !important;
+            margin-bottom: 24px !important;
+            text-align: center !important;
+        }
+
+        #s20250830e815f967366ab .greeting-text p:last-of-type {
+            margin-bottom: 0 !important;
+        }
+
+        #s20250830e815f967366ab .emphasis {
+            color: #2563EB !important;
+            font-weight: 700 !important;
+        }
+
+        /* 모바일 전용 띄어쓰기 */
+        #s20250830e815f967366ab .mobile-br {
+            display: none !important;
+        }
+
+        /* 태블릿 반응형 */
+        @media (max-width: 1024px) {
+            #s20250830e815f967366ab .team-grid {
+                gap: 30px !important;
+            }
+            
+            #s20250830e815f967366ab .member-card {
+                padding: 35px 25px !important;
+            }
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            #s20250830e815f967366ab {
+                padding: 40px 0 !important;
+            }
+            
+            #s20250830e815f967366ab .section-title {
+                margin-bottom: 35px !important;
+            }
+            
+            #s20250830e815f967366ab .section-title h2 {
+                font-size: 28px !important;
+            }
+            
+            #s20250830e815f967366ab .section-title p {
+                font-size: 16px !important;
+            }
+            
+            #s20250830e815f967366ab .team-grid {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+                margin-bottom: 40px !important;
+            }
+            
+            #s20250830e815f967366ab .member-card {
+                padding: 30px 20px !important;
+            }
+            
+            #s20250830e815f967366ab .member-image {
+                width: 180px !important;
+                height: 220px !important;
+            }
+            
+            #s20250830e815f967366ab .member-name {
+                font-size: 24px !important;
+            }
+            
+            #s20250830e815f967366ab .member-position {
+                font-size: 16px !important;
+            }
+            
+            #s20250830e815f967366ab .greeting-section {
+                padding: 35px 25px !important;
+            }
+            
+            #s20250830e815f967366ab .greeting-section h3 {
+                font-size: 22px !important;
+                word-break: keep-all !important;
+            }
+            
+            #s20250830e815f967366ab .greeting-text p {
+                font-size: 15px !important;
+                word-break: keep-all !important;
+            }
+            
+            #s20250830e815f967366ab .mobile-br {
+                display: inline !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #s20250830e815f967366ab .section-title h2 {
+                font-size: 24px !important;
+            }
+            
+            #s20250830e815f967366ab .member-image {
+                width: 160px !important;
+                height: 200px !important;
+            }
+            
+            #s20250830e815f967366ab .member-name {
+                font-size: 22px !important;
+            }
+            
+            #s20250830e815f967366ab .member-position {
+                font-size: 15px !important;
+            }
+            
+            #s20250830e815f967366ab .qual-item {
+                font-size: 13px !important;
+            }
+            
+            #s20250830e815f967366ab .greeting-section h3 {
+                font-size: 20px !important;
+            }
+            
+            #s20250830e815f967366ab .greeting-text p {
+                font-size: 14px !important;
+                line-height: 1.8 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 대표 소개 섹션 -->
+    <div id="s20250830e815f967366ab">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>대표 소개</h2>
+                <p>정책자금 전문가가 함께합니다</p>
+            </div>
+            
+            <!-- 공통 인사말 -->
+            <div class="greeting-section">
+                <h3>
+                    정책전문가가<br class="mobile-br">
+                    <span class="highlight">승인률</span>과 <span class="highlight">한도</span>를 높여드립니다
+                </h3>
+                <div class="greeting-text">
+                    <p>
+                        안녕하십니까, MJGOOD입니다.
+                    </p>
+                    <p>
+                        저희는 <span class="emphasis">정책자금 및 정부지원자금 정책분석 전문가</span>로 구성되어<br class="mobile-br">
+                        정책자금 심사 기준과 평가 방법을 정확히 알고 있습니다.<br class="mobile-br">
+                        그 경험을 바탕으로 대표님의 승인 가능성을 높여드립니다.
+                    </p>
+                    <p>
+                        많은 대표님들이 복잡한 서류와 까다로운 심사로<br class="mobile-br">
+                        정책자금을 포기하십니다. 하지만 <span class="emphasis">올바른 준비와 전략</span>이 있다면<br class="mobile-br">
+                        충분히 가능합니다.
+                    </p>
+                    <p>
+                        <span class="emphasis">대표님의 성공이 저희의 목표입니다.</span><br class="mobile-br">
+                        최선의 방법을 함께 찾아드리겠습니다.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 2명 카드 그리드 -->
+            <div class="team-grid">
+                <!-- 구민재 대표 -->
+                <div class="member-card ceo">
+                    <div class="member-image">
+                        <img src="https://cdn.imweb.me/upload/S202510149dd911e9a71c1/7e4855089404f.png" alt="구민재 대표">
+                    </div>
+                    <div class="member-name">구 민 재</div>
+                    <div class="member-position">대표 / 기업심사관</div>
+                    <div class="member-qualifications">
+                        <div class="qual-item">사업계획서 컨설팅</div>
+                        <div class="qual-item">자금 승인률 최적화</div>
+                    </div>
+                </div>
+                
+                <!-- 최현호 이사 -->
+                <div class="member-card director">
+                    <div class="member-image">
+                        <img src="https://cdn.imweb.me/upload/S202510149dd911e9a71c1/6613177e50eb6.png" alt="최현호 이사">
+                    </div>
+                    <div class="member-name">최 현 호</div>
+                    <div class="member-position">이사 / 기업심사관</div>
+                    <div class="member-qualifications">
+                        <div class="qual-item">기업 재무 분석 전문</div>
+                        <div class="qual-item">자금 한도 최대화 전략</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "bizen-homepage",
+  "version": "1.0.0",
+  "description": "BIZEN 정책자금 전문 컨설팅 홈페이지",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && npx live-server dist --port=8080",
+    "watch": "nodemon --watch src --watch css --exec \"node build.js\" -e html,css,js"
+  },
+  "devDependencies": {},
+  "keywords": ["bizen", "정책자금", "컨설팅"],
+  "author": "BIZEN",
+  "license": "ISC"
+}

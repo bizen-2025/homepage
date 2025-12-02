@@ -1,0 +1,584 @@
+<!-- ================================================ -->
+<!-- BIZEN 전문가 매칭 프로세스 섹션 -->
+<!-- ================================================ -->
+<style>
+    .process-section {
+        width: 100%;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .process-section .section-wrapper {
+        width: 100%;
+        padding: 40px 0;
+        background-color: #FFFFFF;
+    }
+
+    .process-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* 헤더 영역 */
+    .process-section .section-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .process-section .section-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #0a1628;
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+    .process-section .section-subtitle {
+        font-size: 18px;
+        font-weight: 400;
+        color: #6B7280;
+        line-height: 1.4;
+    }
+
+    /* 프로세스 컨테이너 */
+    .process-section .process-container {
+        position: relative;
+        margin-bottom: 45px;
+    }
+
+    /* 프로세스 라인 */
+    .process-section .process-line {
+        position: absolute;
+        top: 40px;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%);
+        z-index: 1;
+    }
+
+    /* 프로세스 스텝 */
+    .process-section .process-steps {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        z-index: 2;
+    }
+
+    .process-section .process-step {
+        flex: 1;
+        text-align: center;
+        padding: 0 10px;
+        position: relative;
+    }
+
+    /* 스텝 번호 */
+    .process-section .step-number {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .process-section .step-number:hover {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+
+    .process-section .step-number span {
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+
+    /* 스텝 콘텐츠 */
+    .process-section .step-content {
+        background: #F8FAFB;
+        border: 1px solid #E5E7EB;
+        border-radius: 10px;
+        padding: 18px;
+        transition: all 0.3s ease;
+        min-height: 150px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .process-section .step-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+            rgba(96, 165, 250, 0) 0%,
+            rgba(96, 165, 250, 0.2) 50%,
+            rgba(96, 165, 250, 0) 100%);
+        transition: left 0.5s ease;
+        pointer-events: none;
+    }
+
+    .process-section .step-content:hover {
+        background: #FFFFFF;
+        border-color: #60A5FA;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(96, 165, 250, 0.15);
+    }
+
+    .process-section .step-content:hover::before {
+        left: 100%;
+    }
+
+    .process-section .step-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0a1628;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .process-section .step-description {
+        list-style: none;
+        padding: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .process-section .step-description li {
+        font-size: 14px;
+        color: #6B7280;
+        line-height: 1.4;
+        margin-bottom: 5px;
+        position: relative;
+        padding-left: 0;
+    }
+
+    /* 스텝 아이콘 */
+    .process-section .step-icon {
+        width: 32px;
+        height: 32px;
+        margin: 0 auto 12px;
+        fill: #60A5FA;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 성과 지표 영역 */
+    .process-section .metrics-section {
+        margin-top: 45px;
+        margin-bottom: 35px;
+    }
+
+    .process-section .metrics-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #0a1628;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .process-section .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    /* 메트릭 카드 */
+    .process-section .metric-card {
+        background: linear-gradient(135deg, #0a1628 0%, #1a3a5f 100%);
+        border-radius: 10px;
+        padding: 20px 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .process-section .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+            rgba(96, 165, 250, 0) 0%,
+            rgba(96, 165, 250, 0.3) 50%,
+            rgba(96, 165, 250, 0) 100%);
+        transition: left 0.5s ease;
+        pointer-events: none;
+    }
+
+    .process-section .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+    }
+
+    .process-section .metric-card:hover::before {
+        left: 100%;
+    }
+
+    .process-section .metric-icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto 10px;
+        fill: #60A5FA;
+        position: relative;
+        z-index: 1;
+    }
+
+    .process-section .metric-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 5px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .process-section .metric-value {
+        font-size: 24px;
+        font-weight: 900;
+        color: #60A5FA;
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* CTA 영역 */
+    .process-section .cta-area {
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    .process-section .cta-description {
+        font-size: 16px;
+        color: #6B7280;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .process-section .cta-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .process-section .cta-button-primary {
+        display: inline-block;
+        background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 14px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .process-section .cta-button-primary:hover {
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+
+    .process-section .cta-button-secondary {
+        display: inline-block;
+        background: transparent;
+        color: #0a1628;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 14px 40px;
+        border: 2px solid #60A5FA;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .process-section .cta-button-secondary:hover {
+        background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        color: #FFFFFF;
+        transform: translateY(-2px);
+        border-color: transparent;
+    }
+
+    /* 배경 장식 */
+    .process-section .process-decoration {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0.02;
+        background-image:
+            radial-gradient(circle at 30% 20%, #60A5FA 2px, transparent 2px),
+            radial-gradient(circle at 70% 80%, #3B82F6 2px, transparent 2px);
+        background-size: 100px 100px;
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 1024px) {
+        .process-section .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .process-section .process-line {
+            display: none;
+        }
+
+        .process-section .metrics-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .process-section .section-title {
+            font-size: 24px;
+        }
+
+        .process-section .section-subtitle {
+            font-size: 14px;
+        }
+
+        .process-section .section-wrapper {
+            padding: 30px 0;
+        }
+
+        .process-section .process-steps {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .process-section .step-number {
+            width: 70px;
+            height: 70px;
+        }
+
+        .process-section .step-number span {
+            font-size: 14px;
+        }
+
+        .process-section .step-content {
+            padding: 15px;
+        }
+
+        .process-section .step-title {
+            font-size: 16px;
+        }
+
+        .process-section .step-description li {
+            font-size: 13px;
+        }
+
+        .process-section .metrics-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .process-section .metric-card {
+            padding: 15px;
+        }
+
+        .process-section .metric-value {
+            font-size: 20px;
+        }
+
+        .process-section .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .process-section .cta-button-primary,
+        .process-section .cta-button-secondary {
+            width: 100%;
+            max-width: 280px;
+            font-size: 14px;
+            padding: 12px 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .process-section .process-steps {
+            grid-template-columns: 1fr;
+        }
+
+        .process-section .metrics-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="process-section">
+    <div class="section-wrapper">
+        <div class="process-decoration"></div>
+        <div class="container">
+            <!-- 섹션 헤더 -->
+            <div class="section-header">
+                <h2 class="section-title">기업 문제 해결을 위한<br>BIZEN 전문가 매칭 시스템</h2>
+                <p class="section-subtitle">재무, 법무, 노무, 세무, 특허 등 각 분야 최고의 전문가를 연결하여 통합 솔루션을 제공합니다</p>
+            </div>
+
+            <!-- 프로세스 컨테이너 -->
+            <div class="process-container">
+                <div class="process-line"></div>
+                <div class="process-steps">
+                    <!-- Step 1 -->
+                    <div class="process-step">
+                        <div class="step-number">
+                            <span>STEP 1</span>
+                        </div>
+                        <div class="step-content">
+                            <svg class="step-icon" viewBox="0 0 24 24">
+                                <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 10.276v2.448L13 13.789v-2.448l2.211-1.065z"/>
+                                <path d="M5 12h2v5H5zm4 0h2v5H9zm4 0h2v5h-2z"/>
+                                <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
+                            </svg>
+                            <h3 class="step-title">니즈 파악</h3>
+                            <ul class="step-description">
+                                <li>✓ 기업 현황 상세 분석</li>
+                                <li>✓ 핵심 문제점 파악</li>
+                                <li>✓ 필요 전문분야 도출</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-step">
+                        <div class="step-number">
+                            <span>STEP 2</span>
+                        </div>
+                        <div class="step-content">
+                            <svg class="step-icon" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <h3 class="step-title">솔루션 기획</h3>
+                            <ul class="step-description">
+                                <li>✓ 통합 서비스 구성</li>
+                                <li>✓ 단계별 실행계획 수립</li>
+                                <li>✓ 예상 성과 설정</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-step">
+                        <div class="step-number">
+                            <span>STEP 3</span>
+                        </div>
+                        <div class="step-content">
+                            <svg class="step-icon" viewBox="0 0 24 24">
+                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                            </svg>
+                            <h3 class="step-title">전문가 선정</h3>
+                            <ul class="step-description">
+                                <li>✓ 분야별 최적 전문가 매칭</li>
+                                <li>✓ 전문성 및 경력 검증</li>
+                                <li>✓ 협업 팀 구성 완료</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-step">
+                        <div class="step-number">
+                            <span>STEP 4</span>
+                        </div>
+                        <div class="step-content">
+                            <svg class="step-icon" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <h3 class="step-title">서비스 실행</h3>
+                            <ul class="step-description">
+                                <li>✓ 분야별 전문 컨설팅</li>
+                                <li>✓ 통합 코디네이션</li>
+                                <li>✓ 실시간 진행사항 공유</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="process-step">
+                        <div class="step-number">
+                            <span>STEP 5</span>
+                        </div>
+                        <div class="step-content">
+                            <svg class="step-icon" viewBox="0 0 24 24">
+                                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                            </svg>
+                            <h3 class="step-title">성과 관리</h3>
+                            <ul class="step-description">
+                                <li>✓ 목표 달성도 점검</li>
+                                <li>✓ 추가 개선사항 도출</li>
+                                <li>✓ 지속 관리방안 제시</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 성과 지표 영역 -->
+            <div class="metrics-section">
+                <h3 class="metrics-title">BIZEN 파트너스 전문가 네트워크 현황</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        <div class="metric-label">재무/회계 전문가</div>
+                        <div class="metric-value">52명+</div>
+                    </div>
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1.93.66 1.64 2.08 1.64 1.51 0 2.24-.63 2.24-1.51 0-.83-.44-1.34-2.05-1.73-1.85-.47-3.29-1.31-3.29-3.08 0-1.64 1.26-2.81 3.08-3.17V5h2.67v1.82c1.52.38 2.66 1.44 2.77 3.08h-1.96c-.1-.9-.57-1.49-1.74-1.49-1.17 0-1.93.53-1.93 1.42 0 .82.54 1.21 2.05 1.59 1.84.51 3.28 1.27 3.28 3.16 0 1.87-1.36 2.89-3.22 3.26z"/>
+                        </svg>
+                        <div class="metric-label">법무/노무 전문가</div>
+                        <div class="metric-value">38명+</div>
+                    </div>
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div class="metric-label">특허/인증 전문가</div>
+                        <div class="metric-value">31명+</div>
+                    </div>
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        <div class="metric-label">세무/행정 전문가</div>
+                        <div class="metric-value">45명+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA 영역 -->
+            <div class="cta-area">
+                <p class="cta-description">
+                    재무회계, 법무노무, 특허인증, 세무행정 등<br>
+                    기업 운영에 필요한 전문 서비스를 한 곳에서 해결합니다
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contact-form" class="cta-button-primary">전문가 매칭 신청</a>
+                    <a href="tel:1668-3166" class="cta-button-secondary">전화 상담</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

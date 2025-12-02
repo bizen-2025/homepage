@@ -1,0 +1,341 @@
+<!-- 자주 묻는 질문 섹션 -->
+<style>
+    .process-faq-section {
+        background: #ffffff;
+        padding: 60px 20px;
+        width: 100%;
+    }
+
+    .process-faq-section .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .process-faq-section .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .process-faq-section .section-header h2 {
+        font-size: 38px;
+        font-weight: 700;
+        color: #0a1628;
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .process-faq-section .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #60A5FA, transparent);
+        box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    }
+
+    .process-faq-section .section-header p {
+        font-size: 18px;
+        color: #718096;
+        line-height: 1.5;
+    }
+
+    .process-faq-section .faq-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .process-faq-section .faq-item {
+        background: #F8FAFB;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .process-faq-section .faq-item:hover {
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .process-faq-section .faq-item.active {
+        border-color: #60A5FA;
+        box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+    }
+
+    .process-faq-section .faq-question {
+        padding: 25px 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        user-select: none;
+    }
+
+    .process-faq-section .faq-item.active .faq-question {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .process-faq-section .faq-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        color: #ffffff;
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 700;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .process-faq-section .faq-item.active .faq-number {
+        background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+    }
+
+    .process-faq-section .faq-question-text {
+        flex: 1;
+        font-size: 18px;
+        font-weight: 600;
+        color: #2D3748;
+        line-height: 1.4;
+    }
+
+    .process-faq-section .faq-toggle {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        position: relative;
+        border-radius: 50%;
+        background: #e5e7eb;
+    }
+
+    .process-faq-section .faq-toggle::before,
+    .process-faq-section .faq-toggle::after {
+        content: '';
+        position: absolute;
+        background: #718096;
+        transition: all 0.3s ease;
+    }
+
+    .process-faq-section .faq-toggle::before {
+        width: 12px;
+        height: 2px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .process-faq-section .faq-toggle::after {
+        width: 2px;
+        height: 12px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease;
+    }
+
+    .process-faq-section .faq-item:hover .faq-toggle {
+        background: #60A5FA;
+    }
+
+    .process-faq-section .faq-item:hover .faq-toggle::before,
+    .process-faq-section .faq-item:hover .faq-toggle::after {
+        background: #ffffff;
+    }
+
+    .process-faq-section .faq-item.active .faq-toggle {
+        background: #60A5FA;
+    }
+
+    .process-faq-section .faq-item.active .faq-toggle::before {
+        background: #ffffff;
+    }
+
+    .process-faq-section .faq-item.active .faq-toggle::after {
+        opacity: 0;
+    }
+
+    .process-faq-section .faq-answer {
+        display: none;
+        padding: 25px 30px 25px 84px;
+        background: #ffffff;
+    }
+
+    .process-faq-section .faq-item.active .faq-answer {
+        display: block;
+    }
+
+    .process-faq-section .faq-answer p {
+        font-size: 16px;
+        color: #2D3748;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .process-faq-section .faq-answer strong {
+        color: #1a3a5f;
+        font-weight: 700;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    .process-faq-section .highlight-success {
+        color: #3B82F6;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .process-faq-section {
+            padding: 40px 16px;
+        }
+
+        .process-faq-section .section-header {
+            margin-bottom: 30px;
+        }
+
+        .process-faq-section .section-header h2 {
+            font-size: 28px;
+        }
+
+        .process-faq-section .section-header p {
+            font-size: 16px;
+        }
+
+        .process-faq-section .faq-container {
+            gap: 12px;
+        }
+
+        .process-faq-section .faq-question {
+            padding: 18px 15px;
+        }
+
+        .process-faq-section .faq-number {
+            min-width: 32px;
+            height: 32px;
+            font-size: 13px;
+        }
+
+        .process-faq-section .faq-question-text {
+            font-size: 15px;
+        }
+
+        .process-faq-section .faq-answer {
+            padding: 18px 15px;
+        }
+
+        .process-faq-section .faq-answer p {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<section class="process-faq-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>자주 묻는 질문</h2>
+            <p>BIZEN의 전문 심사관 시스템에 대해 궁금하신 내용을 확인하세요</p>
+        </div>
+
+        <div class="faq-container" id="processFaqContainer">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q1</span>
+                    <span class="faq-question-text">BIZEN의 정책자금 승인률이 정말 95%인가요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>네, 맞습니다. <span class="highlight-success">95%의 높은 승인률</span>은 전문 심사관 시스템이 만든 검증된 성과입니다. 정책자금 심사 포인트를 정밀 분석하는 전문가가 기업의 강점을 극대화하는 최적화 전략을 설계하기 때문입니다. 찾아가는 영업 없이 오직 실력으로만 신뢰를 쌓아왔습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q2</span>
+                    <span class="faq-question-text">전문 심사관 시스템은 어떻게 진행되나요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>체계적인 4단계 프로세스</strong>로 진행됩니다. 첫째, 24시간 내 기업 진단으로 현재 상황을 정밀 분석합니다. 둘째, 기업 특성에 맞는 최적 정책자금을 매칭합니다. 셋째, 서류 작성부터 심사까지 전 과정을 밀착 관리합니다. 넷째, 선정 후에도 추가 자금 연계와 지속 성장 관리를 제공합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q3</span>
+                    <span class="faq-question-text">어떤 종류의 정부지원사업을 지원받을 수 있나요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>중앙부처, 지자체, 공공기관의 모든 정책자금을 통합 지원합니다. <strong>창업자금, 시설자금, 운전자금, R&D자금, 수출지원금, 각종 인증</strong> 등 기업 성장 단계별 최적 자금을 발굴합니다. 전문 심사관이 잠재된 지원사업까지 찾아내어 승인 한도를 극대화합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q4</span>
+                    <span class="faq-question-text">컨설팅 비용은 어떻게 되나요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>1차 무료심사</strong>를 제공합니다. 본격 컨설팅 비용은 지원사업 규모와 복잡도에 따라 책정되며, <strong>대면 상담에서 기업 상황별 맞춤 가이드</strong>를 드립니다. 투명하고 합리적인 비용 체계로 부담 없이 시작하실 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q5</span>
+                    <span class="faq-question-text">신청부터 자금 수령까지 얼마나 걸리나요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>지원사업 유형에 따라 다르지만 <strong>긴급 자금은 1개월 내</strong>, 일반적으로는 <strong>2-4개월</strong> 정도 소요됩니다. 전문 심사관 시스템은 단순 신청이 아닌 <strong>최대 한도, 최저 금리, 최적 조건</strong>을 종합 분석하여 가장 유리한 결과를 확보합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">Q6</span>
+                    <span class="faq-question-text">정책자금 승인 후에도 관리를 받을 수 있나요?</span>
+                    <div class="faq-toggle"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>물론입니다. BIZEN은 <strong>지속적인 성장 동반자</strong>로 함께합니다. 자금 집행 관리, 사업 성과 보고, 추가 지원사업 연계, 인증 획득, 기업부설 연구소 설립까지 체계적으로 지원합니다. 일회성 컨설팅이 아닌 기업의 믿을 수 있는 성장 파트너가 되겠습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    var container = document.getElementById('processFaqContainer');
+    if (!container) return;
+
+    container.addEventListener('click', function(e) {
+        var question = e.target.closest('.faq-question');
+        if (!question) return;
+
+        var item = question.closest('.faq-item');
+        if (!item) return;
+
+        var allItems = container.querySelectorAll('.faq-item');
+        allItems.forEach(function(i) {
+            if (i !== item) {
+                i.classList.remove('active');
+            }
+        });
+
+        item.classList.toggle('active');
+    });
+})();
+</script>
