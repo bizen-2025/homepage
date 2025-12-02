@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 - BIZEN</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #0a1628 0%, #0f2847 50%, #0a1628 100%);
+            min-height: 100vh;
+        }
+
+        /* 브레드크럼 */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 12px 16px;
+        }
+        @media (min-width: 768px) {
+            .breadcrumb {
+                padding: 100px 20px 20px;
+            }
+        }
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+        .breadcrumb-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .breadcrumb-list a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .breadcrumb-list a:hover {
+            color: #93C5FD;
+        }
+        .breadcrumb-list .separator {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .breadcrumb-list .current {
+            color: #93C5FD;
+            font-weight: 500;
+        }
+
+        /* 메인 레이아웃 */
+        .post-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 12px 60px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        @media (min-width: 768px) {
+            .post-layout {
+                padding: 0 20px 60px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .post-layout {
+                grid-template-columns: 1fr 280px;
+            }
+        }
+
+        /* 메인 콘텐츠 */
+        .post-main {
+            min-width: 0;
+        }
+
+        /* 헤더 섹션 */
+        .post-header {
+            margin-bottom: 30px;
+        }
+        .post-category {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #93C5FD;
+            margin-bottom: 16px;
+        }
+        .post-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.4;
+            margin: 0 0 10px 0;
+            word-break: keep-all;
+        }
+        .post-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin: 0 0 16px 0;
+        }
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .post-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .post-meta-item svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        @media (min-width: 768px) {
+            .post-title {
+                font-size: 32px;
+                margin: 0 0 12px 0;
+            }
+            .post-subtitle {
+                font-size: 17px;
+                margin: 0 0 20px 0;
+            }
+        }
+        @media (min-width: 1024px) {
+            .post-title {
+                font-size: 36px;
+            }
+            .post-subtitle {
+                font-size: 18px;
+            }
+        }
+
+        /* 히어로 이미지 */
+        .post-hero-image {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        @media (min-width: 768px) {
+            .post-hero-image {
+                border-radius: 16px;
+                margin-bottom: 40px;
+            }
+        }
+        .post-hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .post-hero-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(15, 40, 71, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .post-hero-placeholder svg {
+            width: 80px;
+            height: 80px;
+            fill: rgba(147, 197, 253, 0.4);
+        }
+        @media (min-width: 768px) {
+            .post-hero-placeholder {
+                height: 400px;
+            }
+        }
+
+        /* 본문 콘텐츠 */
+        .post-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .post-content-body {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            min-width: 0;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+        .post-content-body p {
+            margin: 0 0 12px 0;
+        }
+        .post-content-body h4, .post-content-body h5 {
+            color: #93C5FD;
+            margin: 20px 0 10px 0;
+            font-size: 15px;
+        }
+        .post-content-body ul, .post-content-body ol {
+            margin: 10px 0;
+            padding-left: 16px;
+        }
+        .post-content-body li {
+            margin-bottom: 5px;
+        }
+        /* 그래프/차트/시각화 요소 너비 확보 */
+        .post-content-body table,
+        .post-content-body .chart,
+        .post-content-body .graph,
+        .post-content-body canvas,
+        .post-content-body iframe {
+            max-width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+        .post-content-body img {
+            max-width: 100%;
+            height: auto;
+        }
+        /* 모바일에서 grid 2열을 1열로 변경 */
+        @media (max-width: 499px) {
+            .post-content-body div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        @media (min-width: 768px) {
+            .post-content {
+                padding: 40px;
+                border-radius: 16px;
+                margin-bottom: 40px;
+            }
+            .post-content-body {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+            .post-content-body h4, .post-content-body h5 {
+                margin: 24px 0 12px 0;
+                font-size: 16px;
+            }
+            .post-content-body ul, .post-content-body ol {
+                margin: 12px 0;
+                padding-left: 20px;
+            }
+        }
+
+        /* 사이드바 */
+        .post-sidebar {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .post-sidebar {
+                display: block;
+            }
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 100px;
+        }
+
+        /* 사이드바 카드 */
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .sidebar-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #93C5FD;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 공유 버튼 */
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.1);
+            color: #93C5FD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        .share-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* 글 정보 */
+        .info-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .info-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .info-value {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* 목록 버튼 (사이드바용) */
+        .back-to-list {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 12px;
+            color: #93C5FD;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-to-list:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.8);
+        }
+        .back-to-list svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* 관련 글 섹션 */
+        .related-posts {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .related-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 20px 0;
+        }
+        @media (min-width: 768px) {
+            .related-posts {
+                margin-top: 60px;
+                padding-top: 40px;
+            }
+            .related-title {
+                font-size: 24px;
+                margin: 0 0 30px 0;
+            }
+        }
+        .related-title span {
+            color: #93C5FD;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media (min-width: 640px) {
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .related-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 관련 글 카드 */
+        .related-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        @media (min-width: 768px) {
+            .related-card {
+                border-radius: 12px;
+            }
+        }
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(96, 165, 250, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .related-card-thumb {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(15, 40, 71, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .related-card-thumb {
+                height: 140px;
+            }
+        }
+        .related-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .related-card-thumb svg {
+            width: 40px;
+            height: 40px;
+            fill: rgba(147, 197, 253, 0.4);
+        }
+        .related-card-content {
+            padding: 12px;
+        }
+        @media (min-width: 768px) {
+            .related-card-content {
+                padding: 16px;
+            }
+        }
+        .related-card-category {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #93C5FD;
+            margin-bottom: 6px;
+        }
+        @media (min-width: 768px) {
+            .related-card-category {
+                padding: 4px 10px;
+                border-radius: 12px;
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+        }
+        .related-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.4;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: keep-all;
+        }
+        @media (min-width: 768px) {
+            .related-card-title {
+                font-size: 15px;
+            }
+        }
+
+        /* 모바일 하단 바 */
+        .mobile-bottom-bar {
+            display: block;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 40, 71, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 12px 20px;
+            z-index: 1000;
+        }
+        @media (min-width: 1024px) {
+            .mobile-bottom-bar {
+                display: none;
+            }
+        }
+        .mobile-bottom-content {
+            display: flex;
+            gap: 12px;
+        }
+        .mobile-back-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: transparent;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 12px;
+            color: #93C5FD;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .mobile-share-btn {
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 12px;
+            color: #93C5FD;
+            cursor: pointer;
+        }
+        .mobile-share-btn svg, .mobile-back-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* 로딩 상태 */
+        .post-loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .post-loading .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-top-color: #93C5FD;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 에러 상태 */
+        .post-error {
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .post-error svg {
+            width: 80px;
+            height: 80px;
+            fill: rgba(239, 68, 68, 0.6);
+            margin-bottom: 20px;
+        }
+        .post-error h2 {
+            color: #ffffff;
+            margin: 0 0 10px 0;
+        }
+        .post-error p {
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 0 20px 0;
+        }
+
+        /* 하단 여백 (모바일 바) */
+        @media (max-width: 1023px) {
+            .post-layout {
+                padding-bottom: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="로고화이트 복사.png" alt="BIZEN" class="logo-img">
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">비젠</a>
+                <a href="about.html" class="nav-link">회사소개</a>
+                <a href="process.html" class="nav-link">진행절차</a>
+                <a href="fund.html" class="nav-link">정책자금</a>
+                <a href="service.html" class="nav-link">전문가서비스</a>
+                <a href="index.html#contact-form" class="btn-cta">무료심사</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-grid">
+            <a href="index.html" class="mobile-nav-link">비젠</a>
+            <a href="about.html" class="mobile-nav-link">회사소개</a>
+            <a href="process.html" class="mobile-nav-link">진행절차</a>
+            <a href="fund.html" class="mobile-nav-link">정책자금</a>
+            <a href="service.html" class="mobile-nav-link">전문가서비스</a>
+            <a href="index.html#contact-form" class="mobile-nav-link cta-link">무료심사</a>
+        </div>
+    </nav>
+
+    <!-- 로딩 상태 -->
+    <div class="post-loading" id="post-loading">
+        <div class="spinner"></div>
+        <p>게시글을 불러오는 중...</p>
+    </div>
+
+    <!-- 에러 상태 -->
+    <div class="post-error" id="post-error" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <h2>게시글을 찾을 수 없습니다</h2>
+        <p>요청하신 게시글이 존재하지 않거나 삭제되었습니다.</p>
+        <a href="index.html#board" class="back-to-list" style="display: inline-flex; width: auto; padding: 14px 30px;">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            목록으로 돌아가기
+        </a>
+    </div>
+
+    <!-- 브레드크럼 -->
+    <nav class="breadcrumb" id="breadcrumb" style="display: none;">
+        <ol class="breadcrumb-list">
+            <li><a href="index.html">홈</a></li>
+            <li><span class="separator">›</span></li>
+            <li><a href="index.html#board">공지사항 & 뉴스</a></li>
+            <li><span class="separator">›</span></li>
+            <li><span class="current" id="breadcrumb-category">정보</span></li>
+        </ol>
+    </nav>
+
+    <!-- 메인 레이아웃 -->
+    <div class="post-layout" id="post-layout" style="display: none;">
+        <!-- 메인 콘텐츠 -->
+        <main class="post-main">
+            <!-- 헤더 -->
+            <header class="post-header">
+                <span class="post-category" id="post-category">정보</span>
+                <h1 class="post-title" id="post-title">게시글 제목</h1>
+                <p class="post-subtitle" id="post-subtitle">게시글 요약</p>
+                <div class="post-meta">
+                    <div class="post-meta-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <span>BIZEN</span>
+                    </div>
+                    <div class="post-meta-item" id="post-date">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                        <span>2025.01.01</span>
+                    </div>
+                    <div class="post-meta-item" id="post-views">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                        <span>조회 0</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 히어로 이미지 -->
+            <div class="post-hero-image" id="post-hero">
+                <div class="post-hero-placeholder">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/></svg>
+                </div>
+            </div>
+
+            <!-- 본문 -->
+            <article class="post-content">
+                <div class="post-content-body" id="post-body">
+                    본문 내용이 여기에 표시됩니다.
+                </div>
+            </article>
+
+            <!-- 관련 글 -->
+            <section class="related-posts" id="related-posts">
+                <h2 class="related-title"><span>관련</span> 게시글</h2>
+                <div class="related-grid" id="related-grid">
+                    <!-- 관련 글 카드가 여기에 동적으로 추가됩니다 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 사이드바 -->
+        <aside class="post-sidebar">
+            <div class="sidebar-sticky">
+                <!-- 공유 -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-card-title">공유하기</h3>
+                    <div class="share-buttons">
+                        <button class="share-btn" onclick="shareKakao()" title="카카오톡 공유">
+                            <svg viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.84 1.85 5.33 4.67 6.77l-.65 3.23 3.67-2.41c.74.11 1.51.17 2.31.17 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
+                        </button>
+                        <button class="share-btn" onclick="shareFacebook()" title="페이스북 공유">
+                            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </button>
+                        <button class="share-btn" onclick="shareTwitter()" title="트위터 공유">
+                            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                        </button>
+                        <button class="share-btn" onclick="copyLink()" title="링크 복사">
+                            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 글 정보 -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-card-title">글 정보</h3>
+                    <ul class="info-list">
+                        <li>
+                            <span class="info-label">카테고리</span>
+                            <span class="info-value" id="info-category">정보</span>
+                        </li>
+                        <li>
+                            <span class="info-label">작성자</span>
+                            <span class="info-value">BIZEN</span>
+                        </li>
+                        <li>
+                            <span class="info-label">작성일</span>
+                            <span class="info-value" id="info-date">2025.01.01</span>
+                        </li>
+                        <li>
+                            <span class="info-label">조회수</span>
+                            <span class="info-value" id="info-views">0</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 목록 버튼 -->
+                <a href="index.html#board" class="back-to-list">
+                    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    목록으로 돌아가기
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 모바일 하단 바 (로딩 완료 후 표시) -->
+    <div class="mobile-bottom-bar" id="mobile-bottom-bar" style="visibility: hidden;">
+        <div class="mobile-bottom-content">
+            <a href="index.html#board" class="mobile-back-btn">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                목록으로
+            </a>
+            <button class="mobile-share-btn" onclick="shareNative()">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+    // BIZEN 게시글 상세 페이지
+    (function() {
+        const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
+
+        // URL에서 게시글 ID 추출
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        // DOM 요소
+        const loadingEl = document.getElementById('post-loading');
+        const errorEl = document.getElementById('post-error');
+        const breadcrumbEl = document.getElementById('breadcrumb');
+        const layoutEl = document.getElementById('post-layout');
+        const mobileBarEl = document.getElementById('mobile-bottom-bar');
+
+        let currentPost = null;
+        let allPosts = [];
+
+        // 게시글 로드
+        async function loadPost() {
+            if (!postId) {
+                showError();
+                return;
+            }
+
+            try {
+                // 전체 게시글 목록 가져오기
+                const response = await fetch(`${WORKER_URL}/board`);
+
+                if (!response.ok) {
+                    throw new Error('API 호출 실패');
+                }
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to load posts');
+                }
+
+                allPosts = result.posts.map(post => ({
+                    id: post.id,
+                    title: post.제목,
+                    content: post.내용,
+                    excerpt: post.요약 || (post.내용 || '').substring(0, 100),
+                    category: post.카테고리 || '공지',
+                    thumbnail: post.썸네일,
+                    date: post.작성일,
+                    views: post.조회수 || 0
+                }));
+
+                // 해당 게시글 찾기
+                currentPost = allPosts.find(p => p.id === postId);
+
+                if (!currentPost) {
+                    showError();
+                    return;
+                }
+
+                renderPost();
+                renderRelatedPosts();
+
+            } catch (error) {
+                console.error('게시글 로드 실패:', error);
+                showError();
+            }
+        }
+
+        // 에러 표시
+        function showError() {
+            loadingEl.style.display = 'none';
+            errorEl.style.display = 'block';
+        }
+
+        // 게시글 렌더링
+        function renderPost() {
+            loadingEl.style.display = 'none';
+            breadcrumbEl.style.display = 'block';
+            layoutEl.style.display = 'grid';
+            mobileBarEl.style.visibility = 'visible';  // 로딩 완료 후 표시
+
+            // 페이지 제목 업데이트
+            document.title = `${currentPost.title} - BIZEN`;
+
+            // 브레드크럼
+            document.getElementById('breadcrumb-category').textContent = currentPost.category;
+
+            // 헤더
+            document.getElementById('post-category').textContent = currentPost.category;
+            document.getElementById('post-title').textContent = currentPost.title;
+            document.getElementById('post-subtitle').textContent = currentPost.excerpt;
+            document.getElementById('post-date').querySelector('span:last-child').textContent = formatDate(currentPost.date);
+            document.getElementById('post-views').querySelector('span:last-child').textContent = `조회 ${currentPost.views.toLocaleString()}`;
+
+            // 히어로 이미지
+            const heroEl = document.getElementById('post-hero');
+            if (currentPost.thumbnail) {
+                heroEl.innerHTML = `<img src="${currentPost.thumbnail}" alt="${currentPost.title}">`;
+            }
+
+            // 본문
+            document.getElementById('post-body').innerHTML = formatContent(currentPost.content);
+
+            // 사이드바 정보
+            document.getElementById('info-category').textContent = currentPost.category;
+            document.getElementById('info-date').textContent = formatDate(currentPost.date);
+            document.getElementById('info-views').textContent = currentPost.views.toLocaleString();
+        }
+
+        // 관련 글 렌더링
+        function renderRelatedPosts() {
+            const relatedGrid = document.getElementById('related-grid');
+
+            // 같은 카테고리의 다른 글 (최대 3개)
+            const related = allPosts
+                .filter(p => p.id !== currentPost.id)
+                .slice(0, 3);
+
+            if (related.length === 0) {
+                document.getElementById('related-posts').style.display = 'none';
+                return;
+            }
+
+            relatedGrid.innerHTML = related.map(post => `
+                <a href="post.html?id=${post.id}" class="related-card">
+                    <div class="related-card-thumb">
+                        ${post.thumbnail
+                            ? `<img src="${post.thumbnail}" alt="${post.title}" loading="lazy">`
+                            : `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/></svg>`
+                        }
+                    </div>
+                    <div class="related-card-content">
+                        <span class="related-card-category">${post.category}</span>
+                        <h3 class="related-card-title">${post.title}</h3>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // 날짜 포맷
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}.${month}.${day}`;
+        }
+
+        // 콘텐츠 포맷 (줄바꿈 처리)
+        function formatContent(content) {
+            if (!content) return '';
+
+            // 최소한의 정규화만 수행 (기존 줄바꿈 유지)
+            let normalized = content.trim();
+
+            // 이미 HTML 태그가 있는지 확인
+            const hasStructuredContent = /<(div|p|h[1-6]|ul|ol|table)[^>]*>/i.test(normalized);
+
+            // 구조화 패턴이 있는지 확인
+            const hasStructurePatterns = /(■|\d+[\.\)]|[•\-\*]\s|[□✓☐☑])/m.test(normalized);
+
+            // HTML 블록이 있거나 구조화 패턴이 있으면 구조화 로직 사용
+            if (hasStructuredContent || hasStructurePatterns) {
+                return formatStructuredContent(normalized);
+            }
+
+            // 일반 텍스트: 단순 줄바꿈 처리
+            return normalized
+                .split('\n')
+                .map(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return '<div style="height: 12px;"></div>';
+                    return `<p style="margin: 0 0 12px 0; line-height: 1.8;">${trimmed}</p>`;
+                })
+                .join('');
+        }
+
+        // 구조화된 콘텐츠 포맷
+        function formatStructuredContent(content) {
+            // HTML 블록을 임시로 분리하고 나머지 텍스트만 구조화
+            const htmlBlockPattern = /(<div[\s\S]*?<\/div>|<table[\s\S]*?<\/table>)/gi;
+            const htmlBlocks = [];
+            let blockIndex = 0;
+
+            // HTML 블록을 플레이스홀더로 대체
+            const textWithPlaceholders = content.replace(htmlBlockPattern, (match) => {
+                htmlBlocks.push(match);
+                return `__HTML_BLOCK_${blockIndex++}__`;
+            });
+
+            // 텍스트를 구조화된 HTML로 변환
+            let html = '';
+            const lines = textWithPlaceholders.split('\n');
+            let inList = false;
+
+            lines.forEach((line, index) => {
+                const trimmedLine = line.trim();
+
+                // HTML 블록 플레이스홀더 처리
+                if (trimmedLine.startsWith('__HTML_BLOCK_')) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const blockIdx = parseInt(trimmedLine.match(/__HTML_BLOCK_(\d+)__/)[1]);
+                    html += `<div style="margin: 20px 0;">${htmlBlocks[blockIdx]}</div>`;
+                    return;
+                }
+
+                if (!trimmedLine) {
+                    // 빈 줄 - 간격 없이 무시 (리스트만 닫음)
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    return;
+                }
+
+                // ■ 섹션 제목
+                if (trimmedLine.startsWith('■')) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    html += `<h4 style="color: #93C5FD; font-size: 14px; font-weight: 700; margin: 12px 0 6px 0; padding-bottom: 3px; border-bottom: 1px solid rgba(147, 197, 253, 0.2);">${trimmedLine}</h4>`;
+                    return;
+                }
+
+                // 숫자 리스트 (1. 2. 3.) - 번호와 제목 한 줄에
+                if (/^\d+[\.\)]\s/.test(trimmedLine)) {
+                    if (!inList) {
+                        html += '<ul style="list-style: none; padding: 0; margin: 4px 0;">';
+                        inList = true;
+                    }
+                    const number = trimmedLine.match(/^(\d+)/)[1];
+                    const text = trimmedLine.replace(/^\d+[\.\)]\s*/, '');
+                    html += `<li style="margin-bottom: 1px; font-size: 13px; line-height: 1.5;"><span style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3B82F6, #60A5FA); color: #fff; width: 16px; height: 16px; border-radius: 50%; font-size: 10px; font-weight: 700; margin-right: 5px; vertical-align: middle;">${number}</span><span style="font-weight: 600; color: #fff;">${text}</span></li>`;
+                    return;
+                }
+
+                // 하위 항목 (   - 로 시작하는 들여쓰기) - 숫자 리스트 바로 아래 붙임
+                if (/^\s{2,}-\s/.test(line)) {
+                    const text = line.replace(/^\s*-\s*/, '');
+                    html += `<div style="margin-left: 21px; padding: 0; color: rgba(255,255,255,0.8); font-size: 12px; line-height: 1.4;"><span style="color: #60A5FA;">-</span> ${text}</div>`;
+                    return;
+                }
+
+                // 불릿 리스트 (• - *)
+                if (/^[•\-\*]\s/.test(trimmedLine)) {
+                    if (!inList) {
+                        html += '<ul style="list-style: none; padding: 0; margin: 4px 0;">';
+                        inList = true;
+                    }
+                    const text = trimmedLine.replace(/^[•\-\*]\s*/, '');
+                    html += `<li style="font-size: 12px; line-height: 1.4; margin-bottom: 1px;"><span style="color: #60A5FA;">•</span> ${text}</li>`;
+                    return;
+                }
+
+                // 체크박스 리스트 (□ ✓)
+                if (/^[□✓☐☑]\s/.test(trimmedLine)) {
+                    if (!inList) {
+                        html += '<ul style="list-style: none; padding: 0; margin: 10px 0 10px 8px;">';
+                        inList = true;
+                    }
+                    const isChecked = /^[✓☑]/.test(trimmedLine);
+                    const text = trimmedLine.replace(/^[□✓☐☑]\s*/, '');
+                    html += `<li style="display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; font-size: 14px;">
+                        <span style="color: ${isChecked ? '#10B981' : '#60A5FA'}; font-size: 13px;">${isChecked ? '☑' : '☐'}</span>
+                        <span style="flex: 1; line-height: 1.6;">${text}</span>
+                    </li>`;
+                    return;
+                }
+
+                // 일반 텍스트
+                if (inList) {
+                    html += '</ul>';
+                    inList = false;
+                }
+                html += `<p style="margin: 0 0 4px 0; line-height: 1.5; font-size: 13px;">${trimmedLine}</p>`;
+            });
+
+            if (inList) {
+                html += '</ul>';
+            }
+
+            return html;
+        }
+
+        // 공유 기능
+        window.shareKakao = function() {
+            if (window.Kakao && Kakao.isInitialized()) {
+                Kakao.Link.sendDefault({
+                    objectType: 'feed',
+                    content: {
+                        title: currentPost.title,
+                        description: currentPost.excerpt,
+                        imageUrl: currentPost.thumbnail || '',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href
+                        }
+                    }
+                });
+            } else {
+                alert('카카오톡 공유 기능을 사용할 수 없습니다.');
+            }
+        };
+
+        window.shareFacebook = function() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank', 'width=600,height=400');
+        };
+
+        window.shareTwitter = function() {
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(currentPost.title)}`, '_blank', 'width=600,height=400');
+        };
+
+        window.copyLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('링크가 복사되었습니다.');
+            }).catch(() => {
+                // 폴백
+                const input = document.createElement('input');
+                input.value = window.location.href;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('링크가 복사되었습니다.');
+            });
+        };
+
+        window.shareNative = function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: currentPost.title,
+                    text: currentPost.excerpt,
+                    url: window.location.href
+                });
+            } else {
+                copyLink();
+            }
+        };
+
+        // 초기화
+        loadPost();
+    })();
+    </script>
+</body>
+</html>

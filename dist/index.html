@@ -1462,10 +1462,9 @@
             color: #ffffff;
             margin-bottom: 10px;
             line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
         }
         .bizen-board-section .card-excerpt {
             font-size: 13px;
@@ -1476,6 +1475,12 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             margin-bottom: 15px;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .bizen-board-section .card-excerpt {
+                display: -webkit-box;
+            }
         }
         .bizen-board-section .card-meta {
             display: flex;
@@ -1761,28 +1766,9 @@
     </div>
 
     <script>
-    // BIZEN 게시판 - Airtable 연동
+    // BIZEN 게시판 - Worker API 연동
     (function() {
-        // ⚠️ Airtable 설정 - 실제 값으로 변경 필요
-        const AIRTABLE_CONFIG = {
-            // Personal Access Token (pat로 시작)
-            apiKey: 'YOUR_AIRTABLE_API_KEY',
-            // Base ID (app로 시작)
-            baseId: 'YOUR_BASE_ID',
-            // 테이블 이름
-            tableName: 'Posts',
-            // 필드 매핑 (Airtable 컬럼명)
-            fields: {
-                title: 'Title',           // 제목
-                content: 'Content',       // 본문
-                excerpt: 'Excerpt',       // 요약 (선택)
-                category: 'Category',     // 카테고리
-                thumbnail: 'Thumbnail',   // 썸네일 이미지 (Attachment 타입)
-                date: 'Date',             // 작성일
-                views: 'Views',           // 조회수
-                published: 'Published'    // 게시 여부 (체크박스)
-            }
-        };
+        const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
 
         const POSTS_PER_PAGE = 6;
         let currentPage = 1;
@@ -1798,38 +1784,33 @@
         const modalOverlay = document.getElementById('board-modal-overlay');
         const modalClose = document.getElementById('board-modal-close');
 
-        // Airtable API 호출
+        // Worker API 호출
         async function fetchPosts() {
             if (isLoading) return;
             isLoading = true;
 
             try {
-                const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?` +
-                    `filterByFormula={${AIRTABLE_CONFIG.fields.published}}=TRUE()&` +
-                    `sort[0][field]=${AIRTABLE_CONFIG.fields.date}&sort[0][direction]=desc`;
-
-                const response = await fetch(url, {
-                    headers: {
-                        'Authorization': `Bearer ${AIRTABLE_CONFIG.apiKey}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const response = await fetch(`${WORKER_URL}/board`);
 
                 if (!response.ok) {
                     throw new Error('API 호출 실패');
                 }
 
-                const data = await response.json();
-                allPosts = data.records.map(record => ({
-                    id: record.id,
-                    title: record.fields[AIRTABLE_CONFIG.fields.title] || '',
-                    content: record.fields[AIRTABLE_CONFIG.fields.content] || '',
-                    excerpt: record.fields[AIRTABLE_CONFIG.fields.excerpt] ||
-                             (record.fields[AIRTABLE_CONFIG.fields.content] || '').substring(0, 100),
-                    category: record.fields[AIRTABLE_CONFIG.fields.category] || '공지',
-                    thumbnail: record.fields[AIRTABLE_CONFIG.fields.thumbnail]?.[0]?.url || null,
-                    date: record.fields[AIRTABLE_CONFIG.fields.date] || '',
-                    views: record.fields[AIRTABLE_CONFIG.fields.views] || 0
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to load posts');
+                }
+
+                allPosts = result.posts.map(post => ({
+                    id: post.id,
+                    title: post.제목,
+                    content: post.내용,
+                    excerpt: post.요약 || (post.내용 || '').substring(0, 100),
+                    category: post.카테고리 || '공지',
+                    thumbnail: post.썸네일,
+                    date: post.작성일,
+                    views: post.조회수 || 0
                 }));
 
                 renderPosts();
@@ -1960,12 +1941,11 @@
                 moreEl.style.display = 'none';
             }
 
-            // 카드 클릭 이벤트
+            // 카드 클릭 이벤트 - 상세 페이지로 이동
             gridEl.querySelectorAll('.board-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const postId = card.dataset.id;
-                    const post = allPosts.find(p => p.id === postId);
-                    if (post) openModal(post);
+                    window.location.href = `post.html?id=${postId}`;
                 });
             });
         }

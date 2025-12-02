@@ -6,6 +6,89 @@
   <title>게시판 관리 - BIZEN</title>
   <link rel="stylesheet" href="../css/dashboard.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    .thumbnail-preview {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--neutral-100);
+    }
+    .thumbnail-placeholder {
+      width: 80px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--neutral-100);
+      border-radius: 6px;
+      color: var(--neutral-400);
+    }
+    .post-title-cell {
+      max-width: 350px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .board-table {
+      table-layout: fixed;
+      width: 100%;
+    }
+    .board-table td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .loading-overlay.hidden { display: none; }
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--neutral-200);
+      border-radius: 8px;
+      font-size: 14px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .thumbnail-upload {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .thumbnail-upload-preview {
+      width: 160px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: var(--neutral-100);
+      border: 2px dashed var(--neutral-300);
+    }
+    .thumbnail-upload-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  </style>
 </head>
 <body>
   <div class="dashboard-container">
@@ -21,14 +104,16 @@
       <section class="board-section">
         <!-- 탭 메뉴 -->
         <div class="board-tabs">
-          <button class="board-tab active" data-tab="notice">공지사항</button>
-          <button class="board-tab" data-tab="news">뉴스/소식</button>
-          <button class="board-tab" data-tab="review">고객후기</button>
+          <button class="board-tab active" data-category="전체">전체</button>
+          <button class="board-tab" data-category="공지">공지</button>
+          <button class="board-tab" data-category="뉴스">뉴스</button>
+          <button class="board-tab" data-category="정보">정보</button>
+          <button class="board-tab" data-category="성공사례">성공사례</button>
         </div>
 
         <!-- 헤더 -->
         <div class="section-header">
-          <h3 class="section-title">공지사항</h3>
+          <h3 class="section-title">게시글 관리</h3>
           <button class="btn-primary" onclick="openPostModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
@@ -43,134 +128,19 @@
           <table class="data-table board-table">
             <thead>
               <tr>
-                <th style="width:60px">번호</th>
-                <th>제목</th>
-                <th style="width:100px">작성자</th>
-                <th style="width:120px">작성일</th>
-                <th style="width:80px">조회수</th>
-                <th style="width:100px">상태</th>
-                <th style="width:100px">관리</th>
+                <th style="width:90px">썸네일</th>
+                <th style="min-width:200px; max-width:350px;">제목</th>
+                <th style="width:90px">카테고리</th>
+                <th style="width:110px">작성일</th>
+                <th style="width:90px">조회수</th>
+                <th style="width:90px">상태</th>
+                <th style="width:110px">관리</th>
               </tr>
             </thead>
             <tbody id="boardTableBody">
               <tr>
-                <td>5</td>
-                <td class="post-title">
-                  <a href="#">[안내] 2025년 정책자금 신청 일정 안내</a>
-                </td>
-                <td>관리자</td>
-                <td>2025-11-30</td>
-                <td>128</td>
-                <td><span class="status-badge complete">게시중</span></td>
-                <td>
-                  <button class="btn-icon" onclick="editPost(5)" title="수정">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon-danger" onclick="deletePost(5)" title="삭제">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td class="post-title">
-                  <a href="#">중소기업 창업자금 신청 조건 완화 소식</a>
-                </td>
-                <td>관리자</td>
-                <td>2025-11-28</td>
-                <td>95</td>
-                <td><span class="status-badge complete">게시중</span></td>
-                <td>
-                  <button class="btn-icon" onclick="editPost(4)" title="수정">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon-danger" onclick="deletePost(4)" title="삭제">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td class="post-title">
-                  <a href="#">연말 상담 일정 안내 (12월)</a>
-                </td>
-                <td>관리자</td>
-                <td>2025-11-25</td>
-                <td>67</td>
-                <td><span class="status-badge pending">비공개</span></td>
-                <td>
-                  <button class="btn-icon" onclick="editPost(3)" title="수정">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon-danger" onclick="deletePost(3)" title="삭제">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td class="post-title">
-                  <a href="#">사업계획서 작성 가이드 (무료 배포)</a>
-                </td>
-                <td>관리자</td>
-                <td>2025-11-20</td>
-                <td>234</td>
-                <td><span class="status-badge complete">게시중</span></td>
-                <td>
-                  <button class="btn-icon" onclick="editPost(2)" title="수정">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon-danger" onclick="deletePost(2)" title="삭제">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td class="post-title">
-                  <a href="#">BIZEN 정책자금 컨설팅 서비스 오픈!</a>
-                </td>
-                <td>관리자</td>
-                <td>2025-11-15</td>
-                <td>312</td>
-                <td><span class="status-badge complete">게시중</span></td>
-                <td>
-                  <button class="btn-icon" onclick="editPost(1)" title="수정">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
-                  </button>
-                  <button class="btn-icon btn-icon-danger" onclick="deletePost(1)" title="삭제">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3 6 5 6 21 6"/>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                  </button>
+                <td colspan="7" style="text-align: center; padding: 40px; color: var(--neutral-400);">
+                  게시글을 불러오는 중...
                 </td>
               </tr>
             </tbody>
@@ -178,14 +148,14 @@
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="pagination">
-          <button class="pagination-btn" disabled>
+        <div class="pagination" id="pagination" style="display: none;">
+          <button class="pagination-btn" id="prevPage" disabled>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
           </button>
-          <span class="pagination-info">1 / 1 페이지</span>
-          <button class="pagination-btn" disabled>
+          <span class="pagination-info" id="pageInfo">1 / 1 페이지</span>
+          <button class="pagination-btn" id="nextPage" disabled>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9 18 15 12 9 6"/>
             </svg>
@@ -195,11 +165,16 @@
     </main>
   </div>
 
+  <!-- 로딩 오버레이 -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
   <!-- 게시글 작성/수정 모달 -->
   <div class="modal-overlay" id="postModal">
     <div class="modal modal-lg">
       <div class="modal-header">
-        <h3 class="modal-title">글 작성</h3>
+        <h3 class="modal-title" id="modalTitle">글 작성</h3>
         <button class="modal-close" onclick="closePostModal()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"/>
@@ -209,28 +184,55 @@
       </div>
       <div class="modal-body">
         <form id="postForm">
+          <input type="hidden" id="postId">
           <div class="form-group">
             <label for="postTitle">제목 *</label>
             <input type="text" id="postTitle" placeholder="제목을 입력하세요" required>
           </div>
           <div class="form-group">
+            <label for="postSummary">요약</label>
+            <input type="text" id="postSummary" placeholder="게시글 요약 (카드에 표시됩니다)">
+          </div>
+          <div class="form-group">
             <label for="postContent">내용 *</label>
-            <textarea id="postContent" rows="10" placeholder="내용을 입력하세요" style="width:100%; padding:12px; border:1px solid var(--neutral-200); border-radius:8px; font-size:14px; resize:vertical;"></textarea>
+            <textarea id="postContent" rows="12" placeholder="내용을 입력하세요 (HTML 지원)"></textarea>
+          </div>
+          <div class="form-group">
+            <label>썸네일 이미지</label>
+            <div class="thumbnail-upload">
+              <img id="thumbnailPreview" class="thumbnail-upload-preview" src="" alt="썸네일 미리보기" style="display:none;">
+              <div class="thumbnail-upload-preview" id="thumbnailPlaceholder" style="display:flex; align-items: center; justify-content: center;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--neutral-400);">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+              <div class="thumbnail-upload-btn">
+                <input type="text" id="postThumbnail" placeholder="이미지 URL 입력" style="width: 280px;">
+                <small style="color: var(--neutral-500);">또는 이미지 URL을 직접 입력하세요</small>
+              </div>
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="postCategory">카테고리</label>
               <select id="postCategory" class="filter-select" style="width:100%">
-                <option value="notice">공지사항</option>
-                <option value="news">뉴스/소식</option>
-                <option value="review">고객후기</option>
+                <option value="공지">공지</option>
+                <option value="뉴스">뉴스</option>
+                <option value="정보">정보</option>
+                <option value="성공사례">성공사례</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label for="postDate">작성일</label>
+              <input type="date" id="postDate" style="width:100%; padding:10px; border:1px solid var(--neutral-200); border-radius:8px;">
             </div>
             <div class="form-group">
               <label for="postStatus">공개 상태</label>
               <select id="postStatus" class="filter-select" style="width:100%">
-                <option value="public">게시중</option>
-                <option value="private">비공개</option>
+                <option value="true">게시중</option>
+                <option value="false">비공개</option>
               </select>
             </div>
           </div>
@@ -245,56 +247,345 @@
 
   <script src="../js/components.js"></script>
   <script>
-    // 페이지 로드 시 컴포넌트 초기화
+    // API 설정
+    const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
+
+    // 상태 관리
+    let allPosts = [];
+    let filteredPosts = [];
+    let currentCategory = '전체';
+    let currentPage = 1;
+    const postsPerPage = 10;
+    let editingPostId = null;
+
+    // 페이지 로드 시 초기화
     document.addEventListener('DOMContentLoaded', function() {
       loadSidebar('board');
-      loadDashboardHeader('게시판 관리', '공지사항, 뉴스, 고객후기를 관리합니다');
-    });
+      loadDashboardHeader('게시판 관리', 'Airtable 연동 게시글 CRUD');
+      loadPosts();
 
-    // 탭 전환
-    document.querySelectorAll('.board-tab').forEach(tab => {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.board-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
+      // 탭 클릭 이벤트
+      document.querySelectorAll('.board-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.board-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentCategory = this.dataset.category;
+          currentPage = 1;
+          filterAndRenderPosts();
+        });
+      });
 
-        const tabName = this.dataset.tab;
-        const titles = {
-          notice: '공지사항',
-          news: '뉴스/소식',
-          review: '고객후기'
-        };
-        document.querySelector('.section-title').textContent = titles[tabName];
+      // 썸네일 URL 입력 시 미리보기
+      document.getElementById('postThumbnail').addEventListener('input', function(e) {
+        const url = e.target.value;
+        const preview = document.getElementById('thumbnailPreview');
+        const placeholder = document.getElementById('thumbnailPlaceholder');
+
+        if (url) {
+          preview.src = url;
+          preview.style.display = 'block';
+          placeholder.style.display = 'none';
+          preview.onerror = () => {
+            preview.style.display = 'none';
+            placeholder.style.display = 'flex';
+          };
+        } else {
+          preview.style.display = 'none';
+          placeholder.style.display = 'flex';
+        }
+      });
+
+      // 페이지네이션
+      document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPosts();
+        }
+      });
+      document.getElementById('nextPage').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPosts();
+        }
       });
     });
 
-    // 모달 함수
+    // 게시글 로드 (관리자용 - 전체)
+    async function loadPosts() {
+      showLoading(true);
+      try {
+        const response = await fetch(`${WORKER_URL}/board/all`);
+        const result = await response.json();
+
+        if (result.success) {
+          allPosts = result.posts;
+          filterAndRenderPosts();
+        } else {
+          showError('게시글 로드 실패: ' + (result.error || '알 수 없는 오류'));
+        }
+      } catch (error) {
+        console.error('Load posts error:', error);
+        showError('게시글을 불러올 수 없습니다. 네트워크를 확인하세요.');
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    // 필터링 및 렌더링
+    function filterAndRenderPosts() {
+      if (currentCategory === '전체') {
+        filteredPosts = [...allPosts];
+      } else {
+        filteredPosts = allPosts.filter(post => post.카테고리 === currentCategory);
+      }
+      renderPosts();
+    }
+
+    // 게시글 렌더링
+    function renderPosts() {
+      const tbody = document.getElementById('boardTableBody');
+      const startIdx = (currentPage - 1) * postsPerPage;
+      const endIdx = startIdx + postsPerPage;
+      const pageData = filteredPosts.slice(startIdx, endIdx);
+
+      if (pageData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: var(--neutral-400);">
+              등록된 게시글이 없습니다.
+            </td>
+          </tr>
+        `;
+        document.getElementById('pagination').style.display = 'none';
+        return;
+      }
+
+      tbody.innerHTML = pageData.map((post, idx) => `
+        <tr>
+          <td>
+            ${post.썸네일
+              ? `<img src="${post.썸네일}" alt="" class="thumbnail-preview">`
+              : `<div class="thumbnail-placeholder">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                </div>`
+            }
+          </td>
+          <td class="post-title-cell">
+            <a href="#" onclick="viewPost('${post.id}'); return false;">${post.제목 || '(제목 없음)'}</a>
+          </td>
+          <td><span class="status-badge ${getCategoryClass(post.카테고리)}">${post.카테고리 || '-'}</span></td>
+          <td>${formatDate(post.작성일)}</td>
+          <td>${(post.조회수 || 0).toLocaleString()}</td>
+          <td>
+            <span class="status-badge ${post.게시여부 ? 'complete' : 'pending'}">
+              ${post.게시여부 ? '게시중' : '비공개'}
+            </span>
+          </td>
+          <td>
+            <button class="btn-icon" onclick="editPost('${post.id}')" title="수정">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+            <button class="btn-icon btn-icon-danger" onclick="deletePost('${post.id}')" title="삭제">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      // 페이지네이션 업데이트
+      const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+      document.getElementById('pagination').style.display = totalPages > 1 ? 'flex' : 'none';
+      document.getElementById('pageInfo').textContent = `${currentPage} / ${totalPages} 페이지`;
+      document.getElementById('prevPage').disabled = currentPage <= 1;
+      document.getElementById('nextPage').disabled = currentPage >= totalPages;
+    }
+
+    // 카테고리 스타일
+    function getCategoryClass(category) {
+      const classes = {
+        '공지': 'complete',
+        '뉴스': 'pending',
+        '정보': 'in-progress',
+        '성공사례': 'complete'
+      };
+      return classes[category] || '';
+    }
+
+    // 날짜 포맷
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      const date = new Date(dateStr);
+      return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+    }
+
+    // 모달 열기 (새 글)
     function openPostModal() {
+      editingPostId = null;
+      document.getElementById('modalTitle').textContent = '글 작성';
+      document.getElementById('postForm').reset();
+      document.getElementById('postId').value = '';
+      document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('thumbnailPreview').style.display = 'none';
+      document.getElementById('thumbnailPlaceholder').style.display = 'flex';
       document.getElementById('postModal').classList.add('open');
     }
 
+    // 모달 닫기
     function closePostModal() {
       document.getElementById('postModal').classList.remove('open');
+      editingPostId = null;
     }
 
-    function savePost() {
-      const title = document.getElementById('postTitle').value;
+    // 게시글 수정 모달
+    function editPost(id) {
+      const post = allPosts.find(p => p.id === id);
+      if (!post) return;
+
+      editingPostId = id;
+      document.getElementById('modalTitle').textContent = '글 수정';
+      document.getElementById('postId').value = id;
+      document.getElementById('postTitle').value = post.제목 || '';
+      document.getElementById('postSummary').value = post.요약 || '';
+      document.getElementById('postContent').value = post.내용 || '';
+      document.getElementById('postThumbnail').value = post.썸네일 || '';
+      document.getElementById('postCategory').value = post.카테고리 || '공지';
+      document.getElementById('postDate').value = post.작성일 || '';
+      document.getElementById('postStatus').value = post.게시여부 ? 'true' : 'false';
+
+      // 썸네일 미리보기
+      const preview = document.getElementById('thumbnailPreview');
+      const placeholder = document.getElementById('thumbnailPlaceholder');
+      if (post.썸네일) {
+        preview.src = post.썸네일;
+        preview.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        preview.style.display = 'none';
+        placeholder.style.display = 'flex';
+      }
+
+      document.getElementById('postModal').classList.add('open');
+    }
+
+    // 게시글 저장 (생성/수정)
+    async function savePost() {
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
       if (!title) {
         alert('제목을 입력해주세요.');
         return;
       }
-      alert('게시글이 저장되었습니다.');
-      closePostModal();
-    }
 
-    function editPost(id) {
-      openPostModal();
-      document.querySelector('.modal-title').textContent = '글 수정';
-    }
+      const postData = {
+        제목: title,
+        내용: content,
+        요약: document.getElementById('postSummary').value.trim(),
+        썸네일: document.getElementById('postThumbnail').value.trim() || null,
+        카테고리: document.getElementById('postCategory').value,
+        작성일: document.getElementById('postDate').value,
+        게시여부: document.getElementById('postStatus').value === 'true'
+      };
 
-    function deletePost(id) {
-      if (confirm('정말 삭제하시겠습니까?')) {
-        alert('삭제되었습니다.');
+      showLoading(true);
+
+      try {
+        let response;
+        if (editingPostId) {
+          // 수정
+          response = await fetch(`${WORKER_URL}/board/${editingPostId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+          });
+        } else {
+          // 생성
+          response = await fetch(`${WORKER_URL}/board`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+          });
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert(editingPostId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+          closePostModal();
+          await loadPosts();
+        } else {
+          alert('저장 실패: ' + (result.error || '알 수 없는 오류'));
+        }
+      } catch (error) {
+        console.error('Save error:', error);
+        alert('저장 중 오류가 발생했습니다.');
+      } finally {
+        showLoading(false);
       }
+    }
+
+    // 게시글 삭제
+    async function deletePost(id) {
+      if (!confirm('정말 삭제하시겠습니까?\n삭제된 게시글은 복구할 수 없습니다.')) {
+        return;
+      }
+
+      showLoading(true);
+
+      try {
+        const response = await fetch(`${WORKER_URL}/board/${id}`, {
+          method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert('삭제되었습니다.');
+          await loadPosts();
+        } else {
+          alert('삭제 실패: ' + (result.error || '알 수 없는 오류'));
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('삭제 중 오류가 발생했습니다.');
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    // 게시글 상세 보기
+    function viewPost(id) {
+      const post = allPosts.find(p => p.id === id);
+      if (post) {
+        editPost(id);
+      }
+    }
+
+    // 로딩 표시
+    function showLoading(show) {
+      document.getElementById('loadingOverlay').classList.toggle('hidden', !show);
+    }
+
+    // 에러 표시
+    function showError(message) {
+      document.getElementById('boardTableBody').innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 40px; color: var(--error);">
+            ${message}
+          </td>
+        </tr>
+      `;
     }
   </script>
 </body>
