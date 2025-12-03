@@ -354,9 +354,15 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
                 overflow-x: visible;
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 0;
+                margin-right: 0;
             }
             .bizen-board-section .board-card {
                 flex: none;
+                min-width: unset;
+                width: 100%;
             }
             .bizen-board-section .card-thumbnail { height: 180px; }
             .bizen-board-section .card-title { font-size: 18px; }
@@ -368,8 +374,19 @@
             .bizen-board-section .board-title { font-size: 48px; }
             .bizen-board-section .board-subtitle { font-size: 20px; }
             .bizen-board-section .board-grid {
+                display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
+                overflow-x: visible;
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .bizen-board-section .board-card {
+                flex: none;
+                min-width: unset;
+                width: 100%;
             }
             .bizen-board-section .card-thumbnail { height: 200px; }
             .board-modal-content { padding: 40px; }
