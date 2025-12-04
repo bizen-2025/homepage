@@ -2046,28 +2046,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
 
                 <!-- 업무분야 (체크박스) -->
+                <!-- 관심서비스 -->
                 <div class="form-group full-width">
                     <label class="form-label">
                         관심 서비스 <span class="required">*</span>
                     </label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="service" value="마케팅 컨설팅">
-                            마케팅 컨설팅
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="service" value="광고DB 자동화">
-                            광고DB 자동화
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="service" value="콘텐츠 마케팅">
-                            콘텐츠 마케팅
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="service" value="홈페이지 제작">
-                            홈페이지 제작
-                        </label>
-                    </div>
+                    <select class="form-select" name="service" required>
+                        <option value="">선택해주세요</option>
+                        <option value="마케팅 컨설팅">마케팅 컨설팅</option>
+                        <option value="광고DB 자동화">광고DB 자동화</option>
+                        <option value="콘텐츠 마케팅">콘텐츠 마케팅</option>
+                        <option value="홈페이지 제작">홈페이지 제작</option>
+                        <option value="검색광고 운영">검색광고 운영</option>
+                        <option value="SNS 마케팅">SNS 마케팅</option>
+                        <option value="블로그 마케팅">블로그 마케팅</option>
+                        <option value="AI 자동화 구축">AI 자동화 구축</option>
+                        <option value="퍼포먼스 마케팅">퍼포먼스 마케팅</option>
+                    </select>
                 </div>
 
                 <!-- 예산과 문의내용 -->
@@ -2185,14 +2180,13 @@ document.getElementById('mktConsultForm').addEventListener('submit', async funct
         }
     }
 
-    const services = formData.getAll('service');
-    if (services.length === 0) {
-        alert('관심 서비스를 하나 이상 선택해주세요.');
+    data.service = formData.get('service');
+    if (!data.service) {
+        alert('관심 서비스를 선택해주세요.');
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
         return;
     }
-    data.service = services.join(', ');
     data.timestamp = new Date().toLocaleString('ko-KR');
     data.privacy_agreed = privacyAgree.checked ? '동의' : '미동의';
     data.source = '비젠 홈페이지 마케팅 페이지 접수';
