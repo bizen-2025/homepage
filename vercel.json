@@ -3,5 +3,13 @@
   "buildCommand": null,
   "installCommand": null,
   "framework": null,
-  "public": true
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://bizen-homepage.weandbiz.workers.dev/sitemap.xml"
+    }
+  ]
 }

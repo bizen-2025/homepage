@@ -12,7 +12,7 @@ function loadSidebar(currentPage) {
     </div>
 
     <nav class="sidebar-nav">
-      <a href="index.html" class="nav-item ${currentPage === 'dashboard' ? 'active' : ''}">
+      <a href="/admin/" class="nav-item ${currentPage === 'dashboard' ? 'active' : ''}">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"/>
@@ -23,7 +23,7 @@ function loadSidebar(currentPage) {
         </span>
         <span class="nav-text">대시보드</span>
       </a>
-      <a href="leads.html" class="nav-item ${currentPage === 'leads' ? 'active' : ''}">
+      <a href="/admin/leads" class="nav-item ${currentPage === 'leads' ? 'active' : ''}">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
@@ -32,7 +32,7 @@ function loadSidebar(currentPage) {
         </span>
         <span class="nav-text">접수내역</span>
       </a>
-      <a href="board.html" class="nav-item ${currentPage === 'board' ? 'active' : ''}">
+      <a href="/admin/board" class="nav-item ${currentPage === 'board' ? 'active' : ''}">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
@@ -41,7 +41,7 @@ function loadSidebar(currentPage) {
         </span>
         <span class="nav-text">게시판 관리</span>
       </a>
-      <a href="analytics.html" class="nav-item ${currentPage === 'analytics' ? 'active' : ''}">
+      <a href="/admin/analytics" class="nav-item ${currentPage === 'analytics' ? 'active' : ''}">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="20" x2="18" y2="10"/>
@@ -51,7 +51,7 @@ function loadSidebar(currentPage) {
         </span>
         <span class="nav-text">방문통계</span>
       </a>
-      <a href="settings.html" class="nav-item ${currentPage === 'settings' ? 'active' : ''}">
+      <a href="/admin/settings" class="nav-item ${currentPage === 'settings' ? 'active' : ''}">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"/>
@@ -63,7 +63,7 @@ function loadSidebar(currentPage) {
     </nav>
 
     <div class="sidebar-footer">
-      <a href="../index.html" class="nav-item">
+      <a href="/" class="nav-item">
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>

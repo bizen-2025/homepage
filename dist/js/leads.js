@@ -3,7 +3,7 @@
    Airtable 연동 버전
    ================================================ */
 
-const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
+// WORKER_URL은 admin-auth.js에서 선언됨
 
 // 전역 변수
 let allLeads = [];
@@ -48,7 +48,7 @@ function renderLeads() {
   if (filteredLeads.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10" style="text-align: center; padding: 40px; color: #6B7280;">
+        <td colspan="13" style="text-align: center; padding: 40px; color: #6B7280;">
           접수된 내역이 없습니다.
         </td>
       </tr>
@@ -64,6 +64,9 @@ function renderLeads() {
       <td data-label="연락처"><a href="tel:${lead.연락처}">${lead.연락처}</a></td>
       <td data-label="회사명">${lead.기업명}</td>
       <td data-label="업종">${lead.업종 || '-'}</td>
+      <td data-label="지역">${lead.지역 || '-'}</td>
+      <td data-label="통화가능">${lead.통화가능시간 || '-'}</td>
+      <td data-label="직전매출">${lead.직전년도매출 || '-'}</td>
       <td data-label="희망금액">${lead.필요자금규모 || '-'}</td>
       <td data-label="상태">
         <select class="status-select ${getStatusClass(lead.상태)}" onchange="updateStatus(this, '${lead.id}')">
@@ -127,7 +130,7 @@ function showLoading(show) {
   if (show) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10" style="text-align: center; padding: 40px;">
+        <td colspan="13" style="text-align: center; padding: 40px;">
           <div style="display: inline-block; width: 24px; height: 24px; border: 3px solid #E5E7EB; border-top-color: #3B82F6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
           <p style="margin-top: 10px; color: #6B7280;">데이터를 불러오는 중...</p>
         </td>
@@ -141,7 +144,7 @@ function showError(message) {
   const tbody = document.getElementById('leadsTableBody');
   tbody.innerHTML = `
     <tr>
-      <td colspan="10" style="text-align: center; padding: 40px; color: #EF4444;">
+      <td colspan="13" style="text-align: center; padding: 40px; color: #EF4444;">
         ${message}
         <br><br>
         <button onclick="loadLeads()" style="padding: 8px 16px; background: #3B82F6; color: white; border: none; border-radius: 6px; cursor: pointer;">다시 시도</button>
@@ -280,6 +283,9 @@ function viewDetail(recordId) {
   document.getElementById('detailBusiness').textContent = lead.업종 || '-';
   document.getElementById('detailBizNo').textContent = lead.사업자번호 || '-';
   document.getElementById('detailAmount').textContent = lead.필요자금규모 || '-';
+  document.getElementById('detailRegion').textContent = lead.지역 || '-';
+  document.getElementById('detailCallTime').textContent = lead.통화가능시간 || '-';
+  document.getElementById('detailRevenue').textContent = lead.직전년도매출 || '-';
   document.getElementById('detailContent').textContent = lead.문의사항 || '문의 내용이 없습니다.';
 
   document.getElementById('detailModal').classList.add('open');
