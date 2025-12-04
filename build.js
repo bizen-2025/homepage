@@ -11,7 +11,7 @@ if (!fs.existsSync(DIST_DIR)) {
 }
 
 // 빌드할 페이지 목록
-const pages = ['index.html', 'about.html', 'process.html', 'fund.html', 'service.html'];
+const pages = ['index.html', 'about.html', 'process.html', 'fund.html', 'service.html', 'marketing.html'];
 
 pages.forEach(pageName => {
     const templatePath = path.join(SRC_DIR, pageName);
