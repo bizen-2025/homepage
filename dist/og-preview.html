@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIZEN Open Graph 미리보기</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .preview-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .preview-section h2 {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 카카오톡 미리보기 스타일 */
+        .kakao-preview {
+            background: #b2c7d9;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .kakao-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 300px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .kakao-card-image {
+            width: 100%;
+            height: 157px;
+            background: linear-gradient(135deg, #0f2847 0%, #1e3a5f 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        .kakao-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+        .kakao-card-image img {
+            height: 50px;
+            margin-bottom: 12px;
+        }
+        .kakao-card-image .tagline {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .kakao-card-content {
+            padding: 12px;
+        }
+        .kakao-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        .kakao-card-desc {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.4;
+        }
+        .kakao-card-url {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        /* OG 이미지 미리보기 */
+        .og-image-preview {
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .og-image-container {
+            width: 100%;
+            aspect-ratio: 1200/630;
+            background: linear-gradient(135deg, #0f2847 0%, #1e3a5f 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 60px;
+        }
+        .og-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+        .og-image-container::after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .og-logo {
+            height: 80px;
+            margin-bottom: 30px;
+        }
+        .og-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        .og-subtitle {
+            font-size: 24px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+        }
+        .og-tags {
+            display: flex;
+            gap: 16px;
+            margin-top: auto;
+        }
+        .og-tag {
+            padding: 10px 24px;
+            background: rgba(59,130,246,0.3);
+            border-radius: 24px;
+            color: #93c5fd;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .og-url {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            color: rgba(255,255,255,0.5);
+            font-size: 18px;
+        }
+        .og-graphic {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+        }
+        .og-bar {
+            width: 40px;
+            border-radius: 6px 6px 0 0;
+        }
+        .og-bar:nth-child(1) { height: 80px; background: rgba(59,130,246,0.4); }
+        .og-bar:nth-child(2) { height: 120px; background: rgba(59,130,246,0.6); }
+        .og-bar:nth-child(3) { height: 160px; background: rgba(59,130,246,0.8); }
+        .og-bar:nth-child(4) { height: 200px; background: #3b82f6; }
+
+        /* 메타태그 코드 */
+        .meta-code {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .meta-code pre {
+            color: #d4d4d4;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .meta-code .tag { color: #569cd6; }
+        .meta-code .attr { color: #9cdcfe; }
+        .meta-code .value { color: #ce9178; }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #856404;
+        }
+        .note a { color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BIZEN Open Graph 미리보기</h1>
+
+        <!-- OG 이미지 미리보기 -->
+        <div class="preview-section">
+            <h2>OG 이미지 (1200x630px 권장)</h2>
+            <div class="og-image-preview">
+                <div class="og-image-container">
+                    <img src="BIZEN_01_02.png" alt="BIZEN" class="og-logo">
+                    <div class="og-title">정책자금 전문 컨설팅</div>
+                    <div class="og-subtitle">중소기업 성장의 든든한 파트너</div>
+                    <div class="og-tags">
+                        <span class="og-tag">정책자금</span>
+                        <span class="og-tag">기업금융</span>
+                        <span class="og-tag">무료심사</span>
+                    </div>
+                    <div class="og-url">bizen.co.kr</div>
+                    <div class="og-graphic">
+                        <div class="og-bar"></div>
+                        <div class="og-bar"></div>
+                        <div class="og-bar"></div>
+                        <div class="og-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카카오톡 미리보기 -->
+        <div class="preview-section">
+            <h2>카카오톡 링크 공유 미리보기</h2>
+            <div class="kakao-preview">
+                <div class="kakao-card">
+                    <div class="kakao-card-image">
+                        <img src="BIZEN_01_02.png" alt="BIZEN">
+                        <span class="tagline">정책자금 전문 컨설팅</span>
+                    </div>
+                    <div class="kakao-card-content">
+                        <div class="kakao-card-title">BIZEN - 정책자금 전문 컨설팅</div>
+                        <div class="kakao-card-desc">중소기업 성장의 든든한 파트너, 비젠파트너스</div>
+                        <div class="kakao-card-url">bizen.co.kr</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 메타태그 코드 -->
+        <div class="preview-section">
+            <h2>적용할 메타태그 코드</h2>
+            <div class="meta-code">
+<pre><span class="tag">&lt;!-- 기본 메타태그 --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"description"</span> <span class="attr">content</span>=<span class="value">"중소기업 성장의 든든한 파트너, 비젠파트너스. 정책자금, 기업금융 전문 컨설팅 서비스를 제공합니다."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"keywords"</span> <span class="attr">content</span>=<span class="value">"정책자금, 기업금융, 중소기업, 컨설팅, 비젠, BIZEN"</span><span class="tag">&gt;</span>
+
+<span class="tag">&lt;!-- Open Graph (카카오톡, 페이스북 등) --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:type"</span> <span class="attr">content</span>=<span class="value">"website"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:title"</span> <span class="attr">content</span>=<span class="value">"BIZEN - 정책자금 전문 컨설팅"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:description"</span> <span class="attr">content</span>=<span class="value">"중소기업 성장의 든든한 파트너, 비젠파트너스"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:image"</span> <span class="attr">content</span>=<span class="value">"https://bizen.co.kr/og-image.png"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:url"</span> <span class="attr">content</span>=<span class="value">"https://bizen.co.kr"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:site_name"</span> <span class="attr">content</span>=<span class="value">"BIZEN"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="value">"og:locale"</span> <span class="attr">content</span>=<span class="value">"ko_KR"</span><span class="tag">&gt;</span>
+
+<span class="tag">&lt;!-- Twitter Card --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"twitter:card"</span> <span class="attr">content</span>=<span class="value">"summary_large_image"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"twitter:title"</span> <span class="attr">content</span>=<span class="value">"BIZEN - 정책자금 전문 컨설팅"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"twitter:description"</span> <span class="attr">content</span>=<span class="value">"중소기업 성장의 든든한 파트너, 비젠파트너스"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"twitter:image"</span> <span class="attr">content</span>=<span class="value">"https://bizen.co.kr/og-image.png"</span><span class="tag">&gt;</span></pre>
+            </div>
+
+            <div class="note">
+                <strong>적용 방법:</strong><br>
+                1. 이 페이지를 스크린샷으로 캡처하거나 1200x630px PNG로 저장하여 <code>og-image.png</code>로 업로드<br>
+                2. 위 메타태그를 <code>&lt;head&gt;</code> 태그 안에 추가<br>
+                3. 카카오톡 캐시 초기화: <a href="https://developers.kakao.com/tool/clear/og" target="_blank">카카오 OG 캐시 초기화</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

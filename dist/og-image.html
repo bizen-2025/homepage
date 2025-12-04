@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>BIZEN OG Image</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+        }
+        .og-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #0f2847 0%, #1e3a5f 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .og-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        }
+        .og-container::after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .og-logo {
+            margin-bottom: 40px;
+        }
+        .og-logo-text {
+            font-size: 72px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 8px;
+        }
+        .og-title {
+            font-size: 64px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .og-subtitle {
+            font-size: 32px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+        .og-tags {
+            display: flex;
+            gap: 20px;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+        .og-tag {
+            padding: 14px 32px;
+            background: rgba(59,130,246,0.25);
+            border: 1px solid rgba(59,130,246,0.4);
+            border-radius: 30px;
+            color: #93c5fd;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .og-url {
+            color: rgba(255,255,255,0.4);
+            font-size: 22px;
+            font-weight: 400;
+        }
+        .og-graphic {
+            position: absolute;
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+        }
+        .og-bar {
+            width: 50px;
+            border-radius: 8px 8px 0 0;
+        }
+        .og-bar:nth-child(1) { height: 100px; background: rgba(59,130,246,0.35); }
+        .og-bar:nth-child(2) { height: 150px; background: rgba(59,130,246,0.5); }
+        .og-bar:nth-child(3) { height: 200px; background: rgba(59,130,246,0.7); }
+        .og-bar:nth-child(4) { height: 260px; background: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="og-container">
+        <div class="og-logo">
+            <span class="og-logo-text">BIZEN</span>
+        </div>
+        <div class="og-title">정책자금 전문 컨설팅</div>
+        <div class="og-subtitle">중소기업 성장의 든든한 파트너</div>
+        <div class="og-tags">
+            <span class="og-tag">정책자금</span>
+            <span class="og-tag">기업금융</span>
+            <span class="og-tag">무료심사</span>
+        </div>
+        <div class="og-url">bizen.co.kr</div>
+        <div class="og-graphic">
+            <div class="og-bar"></div>
+            <div class="og-bar"></div>
+            <div class="og-bar"></div>
+            <div class="og-bar"></div>
+        </div>
+    </div>
+</body>
+</html>

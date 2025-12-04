@@ -10,3 +10,6 @@ backup/
 node_modules/
 *.log
 .vercel
+update_pie_chart.js
+generate-og-image.js
+mkt/
