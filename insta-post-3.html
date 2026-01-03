@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>BIZEN Instagram Post 3</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Pretendard', sans-serif; background: #1D4ED8; }
+
+        .post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 50%, #60A5FA 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .post::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .logo {
+            width: 180px;
+            margin-bottom: 50px;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .main-text {
+            font-size: 64px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .sub-text {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 60px;
+            font-weight: 500;
+        }
+
+        .cta-box {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 70px;
+            display: inline-block;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-label {
+            font-size: 24px;
+            color: #6B7280;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .cta-phone {
+            font-size: 56px;
+            font-weight: 900;
+            color: #1D4ED8;
+            letter-spacing: 2px;
+        }
+
+        .benefits {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 20px 30px;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .check {
+            color: #10B981;
+            margin-right: 8px;
+        }
+
+        .corner-deco {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .corner-deco.top-left {
+            top: 40px;
+            left: 40px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-deco.bottom-right {
+            bottom: 40px;
+            right: 40px;
+            border-left: none;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="post">
+        <div class="corner-deco top-left"></div>
+        <div class="corner-deco bottom-right"></div>
+        <div class="content">
+            <img src="로고화이트 복사.png" alt="BIZEN" class="logo">
+            <h1 class="main-text">정책자금<br>무료 진단받기</h1>
+            <p class="sub-text">지금 바로 자격 여부를 확인하세요</p>
+            <div class="cta-box">
+                <p class="cta-label">전화 상담</p>
+                <p class="cta-phone">1668-3166</p>
+            </div>
+            <div class="benefits">
+                <div class="benefit-item"><span class="check">✓</span> 무료 상담</div>
+                <div class="benefit-item"><span class="check">✓</span> 24시간 내 진단</div>
+                <div class="benefit-item"><span class="check">✓</span> 맞춤 전략</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

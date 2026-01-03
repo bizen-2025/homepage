@@ -1,0 +1,98 @@
+{
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/leads",
+      "destination": "/admin/leads",
+      "statusCode": 301
+    },
+    {
+      "source": "/board",
+      "destination": "/admin/board",
+      "statusCode": 301
+    },
+    {
+      "source": "/analytics",
+      "destination": "/admin/analytics",
+      "statusCode": 301
+    },
+    {
+      "source": "/settings",
+      "destination": "/admin/settings",
+      "statusCode": 301
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/Home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/main",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/qna",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/25",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/20",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/21",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/22",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/120",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/130",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/140",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/logout.cm",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/business/:path*",
+      "destination": "/",
+      "statusCode": 301
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://bizen-homepage.weandbiz.workers.dev/sitemap.xml"
+    }
+  ]
+}

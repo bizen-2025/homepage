@@ -1,5 +1,7 @@
 # 민감 정보 파일
 automation/
+wrangler.toml
+wrangler-*.toml
 설계기획서.md
 dist/js/config.js
 .claude/settings.local.json
@@ -13,3 +15,7 @@ node_modules/
 update_pie_chart.js
 generate-og-image.js
 mkt/
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md

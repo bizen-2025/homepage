@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE8ZX35DQW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZE8ZX35DQW');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 - BIZEN</title>
+    <title>게시글 - 비젠파트너스</title>
+
+    <!-- SEO 메타태그 (JavaScript로 동적 업데이트) -->
+    <meta name="description" content="BIZEN 파트너스 - 정책자금 전문 컨설팅">
+    <meta name="google-site-verification" content="oTFWvzDYhGW_CdsEylpP3AJMWRj3hYKZD8vA_d6YBMo">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="게시글 - BIZEN">
+    <meta property="og:description" content="BIZEN 파트너스 - 정책자금 전문 컨설팅">
+    <meta property="og:image" content="https://bizen.co.kr/og-image.png">
+    <meta property="og:url" content="https://bizen.co.kr/post.html">
+    <meta property="og:site_name" content="BIZEN">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="게시글 - BIZEN">
+    <meta name="twitter:description" content="BIZEN 파트너스 - 정책자금 전문 컨설팅">
+    <meta name="twitter:image" content="https://bizen.co.kr/og-image.png">
+
+    <link rel="canonical" href="https://bizen.co.kr/post.html">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
@@ -612,6 +641,7 @@
                 <a href="process.html" class="nav-link">진행절차</a>
                 <a href="fund.html" class="nav-link">정책자금</a>
                 <a href="service.html" class="nav-link">전문가서비스</a>
+                <a href="marketing.html" class="nav-link">온라인마케팅</a>
                 <a href="index.html#contact-form" class="btn-cta">무료심사</a>
             </nav>
         </div>
@@ -851,6 +881,9 @@
             breadcrumbEl.style.display = 'block';
             layoutEl.style.display = 'grid';
             mobileBarEl.style.visibility = 'visible';  // 로딩 완료 후 표시
+
+            // SEO 메타태그 동적 업데이트
+            updateMetaTags(currentPost);
 
             // 페이지 제목 업데이트
             document.title = `${currentPost.title} - BIZEN`;
@@ -1114,6 +1147,38 @@
                 copyLink();
             }
         };
+
+        // SEO 메타태그 동적 업데이트
+        function updateMetaTags(post) {
+            const url = window.location.href;
+            const image = post.thumbnail || 'https://bizen.co.kr/og-image.png';
+            const description = post.excerpt || post.title;
+
+            // 기본 메타태그
+            updateMeta('description', description);
+
+            // Open Graph
+            updateMeta('og:title', `${post.title} - BIZEN`, 'property');
+            updateMeta('og:description', description, 'property');
+            updateMeta('og:image', image, 'property');
+            updateMeta('og:url', url, 'property');
+
+            // Twitter Card
+            updateMeta('twitter:title', `${post.title} - BIZEN`);
+            updateMeta('twitter:description', description);
+            updateMeta('twitter:image', image);
+
+            // Canonical URL
+            const canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.href = url;
+        }
+
+        function updateMeta(name, content, attr = 'name') {
+            let meta = document.querySelector(`meta[${attr}="${name}"]`);
+            if (meta) {
+                meta.setAttribute('content', content);
+            }
+        }
 
         // 초기화
         loadPost();

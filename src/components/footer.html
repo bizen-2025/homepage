@@ -115,6 +115,10 @@
             padding-left: 6px;
         }
 
+        .bizen-footer .mobile-br {
+            display: none;
+        }
+
         .bizen-footer .partnership-link {
             margin-top: 24px;
             padding-top: 20px;
@@ -209,6 +213,15 @@
         @media (max-width: 768px) {
             .bizen-footer {
                 padding: 44px 0 0;
+            }
+
+            .bizen-footer .mobile-br {
+                display: block;
+            }
+
+            .bizen-footer .partnership-link a {
+                font-size: 12px;
+                padding: 10px 16px;
             }
 
             .bizen-footer .footer-container {
@@ -316,12 +329,12 @@
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
-                        <span>주소: 경기도 광명시 소하로 190, A동 13층 1301호(소하동, 광명G타워)</span>
+                        <span>주소: 경기도 광명시 소하로 190, A동 13층 1301호<br class="mobile-br">(소하동, 광명G타워)</span>
                     </div>
 
                     <div class="partnership-link">
                         <a href="https://www.jjk-biz.com/" target="_blank" rel="noopener noreferrer">
-                            <img src="https://www.jjk-biz.com/wp-content/uploads/2023/05/n_ci_white_001.svg" alt="JJK" class="partnership-icon">
+                            <img src="https://pub-d983e7cdd28841d2ba87f758cc01aa5f.r2.dev/images/jjk-logo.png" alt="JJK" class="partnership-icon">
                             <span>JJK 업무협약 | BIZEN</span>
                         </a>
                     </div>

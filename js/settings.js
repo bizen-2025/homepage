@@ -4,12 +4,17 @@
 
 // 스택 데이터 (localStorage에 저장)
 let stackData = JSON.parse(localStorage.getItem('stackData')) || [];
+let editingStackId = null; // 수정 중인 스택 ID
+let editingRow = null; // 수정 중인 테이블 행
 
-// 모달 열기
+// 모달 열기 (추가 모드)
 function openAddStackModal() {
+  editingStackId = null;
+  editingRow = null;
   document.getElementById('stackModal').classList.add('open');
   document.getElementById('stackForm').reset();
   document.getElementById('credentialFields').style.display = 'block';
+  document.querySelector('#stackModal .modal-title').textContent = '스택 추가';
 }
 
 // 모달 닫기
@@ -44,6 +49,42 @@ function saveStack() {
     return;
   }
 
+  // 수정 모드
+  if (editingRow) {
+    // 테이블 행 직접 업데이트
+    updateTableRow(editingRow, {
+      name: serviceName,
+      type: serviceType,
+      isGoogleLinked: isGoogleLinked,
+      accountId: isGoogleLinked ? '' : serviceId,
+      url: serviceUrl,
+      note: serviceNote
+    });
+
+    // localStorage에 저장된 데이터도 업데이트
+    if (editingStackId) {
+      const idx = stackData.findIndex(s => s.id === parseInt(editingStackId));
+      if (idx !== -1) {
+        stackData[idx] = {
+          ...stackData[idx],
+          name: serviceName,
+          type: serviceType,
+          isGoogleLinked: isGoogleLinked,
+          accountId: isGoogleLinked ? '' : serviceId,
+          password: servicePw || stackData[idx].password,
+          url: serviceUrl,
+          note: serviceNote
+        };
+        localStorage.setItem('stackData', JSON.stringify(stackData));
+      }
+    }
+
+    closeStackModal();
+    alert('스택이 수정되었습니다.');
+    return;
+  }
+
+  // 추가 모드
   const newStack = {
     id: Date.now(),
     name: serviceName,
@@ -62,6 +103,41 @@ function saveStack() {
   closeStackModal();
 
   alert('스택이 추가되었습니다.');
+}
+
+// 테이블 행 업데이트
+function updateTableRow(tr, data) {
+  const cells = tr.querySelectorAll('td');
+
+  // 서비스명/유형
+  cells[0].innerHTML = `
+    <div class="service-name">
+      <span class="service-icon">🔧</span>
+      <div>
+        <strong>${data.name}</strong>
+        <small>${data.type || '-'}</small>
+      </div>
+    </div>
+  `;
+
+  // ID/계정
+  if (data.isGoogleLinked) {
+    cells[1].innerHTML = '<span class="badge badge-google">Google 연동</span>';
+    cells[2].innerHTML = '<span class="pw-mask">-</span>';
+  } else {
+    cells[1].innerHTML = `<code>${data.accountId || '-'}</code>`;
+    cells[2].innerHTML = '<span class="pw-mask">••••••••</span>';
+  }
+
+  // URL
+  if (data.url) {
+    cells[3].innerHTML = `<a href="${data.url}" target="_blank">${data.url.replace('https://', '')}</a>`;
+  } else {
+    cells[3].innerHTML = '-';
+  }
+
+  // 특이사항
+  cells[4].innerHTML = data.note || '-';
 }
 
 // 테이블에 스택 추가
@@ -106,10 +182,48 @@ function addStackToTable(stack) {
 // 스택 수정
 function editStack(button) {
   const tr = button.closest('tr');
-  const id = tr.dataset.id;
+  editingRow = tr;
+  editingStackId = tr.dataset.id || null;
 
-  // TODO: 수정 모달 구현
-  alert('수정 기능은 추후 구현 예정입니다.');
+  // 테이블에서 데이터 추출
+  const cells = tr.querySelectorAll('td');
+
+  // 서비스명/유형
+  const serviceNameEl = cells[0].querySelector('strong');
+  const serviceTypeEl = cells[0].querySelector('small');
+  const serviceName = serviceNameEl ? serviceNameEl.textContent : '';
+  const serviceType = serviceTypeEl ? serviceTypeEl.textContent : '';
+
+  // ID/계정
+  const accountCell = cells[1];
+  const isGoogleLinked = accountCell.querySelector('.badge-google') !== null;
+  const accountIdEl = accountCell.querySelector('code');
+  const accountId = accountIdEl ? accountIdEl.textContent : '';
+
+  // URL
+  const urlCell = cells[3];
+  const urlLink = urlCell.querySelector('a');
+  const serviceUrl = urlLink ? urlLink.href : '';
+
+  // 특이사항
+  const noteCell = cells[4];
+  const serviceNote = noteCell.textContent.trim();
+
+  // 모달에 데이터 채우기
+  document.getElementById('serviceName').value = serviceName;
+  document.getElementById('serviceType').value = serviceType !== '-' ? serviceType : '';
+  document.getElementById('isGoogleLinked').checked = isGoogleLinked;
+  document.getElementById('serviceId').value = accountId;
+  document.getElementById('servicePw').value = ''; // 보안상 비밀번호는 빈칸
+  document.getElementById('serviceUrl').value = serviceUrl;
+  document.getElementById('serviceNote').value = serviceNote !== '-' ? serviceNote : '';
+
+  // Google 연동 체크에 따라 필드 표시
+  document.getElementById('credentialFields').style.display = isGoogleLinked ? 'none' : 'block';
+
+  // 모달 열기
+  document.querySelector('#stackModal .modal-title').textContent = '스택 수정';
+  document.getElementById('stackModal').classList.add('open');
 }
 
 // 스택 삭제

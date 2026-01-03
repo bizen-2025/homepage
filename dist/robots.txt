@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 동적 Sitemap (게시글 자동 반영)
+Sitemap: https://bizen.co.kr/sitemap.xml
+
+# Admin 폴더 차단
+Disallow: /admin/

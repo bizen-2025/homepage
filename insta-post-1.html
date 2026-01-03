@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>BIZEN Instagram Post 1</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Pretendard', sans-serif; background: #0a1628; }
+
+        .post {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a5f 50%, #1D4ED8 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .logo {
+            width: 200px;
+            margin-bottom: 50px;
+            filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.5));
+        }
+
+        .main-text {
+            font-size: 72px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            color: #60A5FA;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.8);
+        }
+
+        .sub-text {
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 60px;
+            font-weight: 500;
+        }
+
+        .stat-box {
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: 24px;
+            padding: 40px 80px;
+            display: inline-block;
+        }
+
+        .stat-number {
+            font-size: 120px;
+            font-weight: 900;
+            color: #60A5FA;
+            text-shadow: 0 0 40px rgba(96, 165, 250, 0.6);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+        }
+
+        .bottom-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, #3B82F6, #60A5FA, #3B82F6, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="post">
+        <div class="content">
+            <img src="로고화이트 복사.png" alt="BIZEN" class="logo">
+            <h1 class="main-text">정책자금 <span class="highlight">자격</span><br>빠르게 확인하세요</h1>
+            <p class="sub-text">전문가의 정밀 진단</p>
+            <div class="stat-box">
+                <div class="stat-number">24H</div>
+                <div class="stat-label">무료 진단 완료</div>
+            </div>
+        </div>
+        <div class="bottom-line"></div>
+    </div>
+</body>
+</html>

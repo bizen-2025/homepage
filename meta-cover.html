@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIZEN Meta Cover</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+        }
+
+        .cover {
+            width: 1200px;
+            height: 628px;
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a5f 50%, #1D4ED8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 배경 장식 */
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 280px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.5));
+        }
+
+        .tagline {
+            font-size: 32px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .services {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .service-tag {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            color: #93C5FD;
+            font-weight: 500;
+        }
+
+        .contact {
+            margin-top: 40px;
+            font-size: 24px;
+            color: #60A5FA;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* 장식 라인 */
+        .line-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3B82F6, #60A5FA, #3B82F6, transparent);
+        }
+
+        .line-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3B82F6, #60A5FA, #3B82F6, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="cover">
+        <div class="line-top"></div>
+        <div class="content">
+            <img src="로고화이트 복사.png" alt="BIZEN" class="logo">
+            <p class="tagline">정책자금 전문 컨설팅</p>
+            <div class="services">
+                <span class="service-tag">창업자금</span>
+                <span class="service-tag">시설자금</span>
+                <span class="service-tag">운전자금</span>
+                <span class="service-tag">R&D자금</span>
+            </div>
+            <p class="contact">1668-3166</p>
+        </div>
+        <div class="line-bottom"></div>
+    </div>
+</body>
+</html>
