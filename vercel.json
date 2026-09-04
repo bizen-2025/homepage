@@ -3,7 +3,6 @@
   "buildCommand": null,
   "installCommand": null,
   "framework": null,
-  "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
